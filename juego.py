@@ -1,7 +1,7 @@
 import pygame, sys
 import constantes
 
- # Inicio pygame
+# Inicio pygame
 pygame.init() 
 
 # Tamaño pantalla
@@ -15,10 +15,14 @@ pygame.display.set_icon(icono_pantalla)
 # Fondo Pantalla Principal
 fondo_pantalla_principal = pygame.image.load(constantes.FONDO_PANTALLA_PRINCIPAL)
 
+# Musica Pantalla Principal
+pygame.mixer.music.load(constantes.MUSICA_PANTALLA_PRINCIPAL) #Cargo pista de sonido
+pygame.mixer.music.play(-1) #Repito en bucle indefinidamente
+
 # Bucle principal del juego
 while True:
-    pantalla.blit(fondo_pantalla_principal, (0, 0))  #Actualiza fondo de pantalla principal
-    pygame.display.flip()  # ✅ Actualiza la pantalla
+    pantalla.blit(fondo_pantalla_principal, (constantes.FONDO_PANTALLA_PRINCIPAL_FULL_SCREEN))  #Actualiza fondo de pantalla principal
+    pygame.display.flip()  #Actualiza la pantalla
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
