@@ -10,13 +10,13 @@ ICONO_JUEGO = "assets/img/icons/ALL_stars.png"
 FONDO_PANTALLA_PRINCIPAL = "assets/img/forms/img_5.png"
 FONDO_PANTALLA_PRINCIPAL_FULL_SCREEN = (0, 0)
 
-MUSICA_PANTALLA_PRINCIPAL = "assets/audio/music/sonido_prelude_dbz.ogg"
+MUSICA_PANTALLA_PRINCIPAL = "assets/audio/music/Chala_Head_Chala.ogg"
 
 COORDENADA_RECTANGULO_TITULO = (415, 70, 450, 100)
 COORDENADA_RECTANGULO_MENU = (415, 360, 450, 300)
 
 #FUENTES
-FUENTE_TITULO = ("assets/fonts/alagard.ttf")
+FUENTE_TITULO = ("assets/fonts/Halimount.otf")
 FUENTE_MENU = ("assets/fonts/Saiyan-Sans.ttf")
 
 #COLORES

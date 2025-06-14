@@ -9,6 +9,8 @@ pygame.mixer.init()
 # Pantalla
 pantalla = pygame.display.set_mode(constantes.TAMAÑO_PANTALLA)
 pygame.display.set_caption(constantes.TITULO_JUEGO)
+
+#Icono Ventana
 icono_pantalla = pygame.image.load(constantes.ICONO_JUEGO)
 pygame.display.set_icon(icono_pantalla)
 
@@ -17,10 +19,11 @@ fondo_pantalla_principal = pygame.image.load(constantes.FONDO_PANTALLA_PRINCIPAL
 
 # Música
 pygame.mixer.music.load(constantes.MUSICA_PANTALLA_PRINCIPAL)
-pygame.mixer.music.play(-1)
+pygame.mixer.music.play(-1)#Se repite en bucle indefinidamente
 
 # Fuente
-fuente_titulo = pygame.font.Font(constantes.FUENTE_TITULO, 52)
+fuente_titulo = pygame.font.Font(constantes.FUENTE_TITULO, 64)
+fuente_subtitulo = pygame.font.Font(constantes.FUENTE_TITULO, 54)
 fuente_menu = pygame.font.Font(constantes.FUENTE_MENU, 44)
 
 # Rectángulos
@@ -33,7 +36,7 @@ while True:
 
     # Textos del rectángulo de título
     funciones.render_texto("DRAGON BALL Z", fuente_titulo, constantes.COLOR_ROJO, pantalla, rect_titulo.center)
-    funciones.render_texto("MAIN MENU", fuente_menu, constantes.COLOR_ROJO, pantalla, (rect_titulo.centerx, rect_titulo.centery + 60))
+    funciones.render_texto("MAIN MENU", fuente_subtitulo, constantes.COLOR_ROJO, pantalla, (rect_titulo.centerx, rect_titulo.centery + 60))
 
     # Textos del rectángulo de menú
     lista_opciones = ["JUGAR", "OPCIONES", "RANKING", "SALIR"]
