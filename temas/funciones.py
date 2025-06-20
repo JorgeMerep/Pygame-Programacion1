@@ -1,3 +1,4 @@
+# PANTALLA PRINCIPAL
 def render_texto(texto, fuente, color, superficie, eje_x, eje_y):
     """
     Renderiza el texto en coordenadas fijas (eje_x, eje_y).
@@ -48,3 +49,6 @@ def mostrar_opciones_menu(pantalla, fuente_menu, opciones, color):
     for indice in range(len(opciones)):
         texto_render = fuente_menu.render(opciones[indice], True, color)
         pantalla.blit(texto_render, coordenadas[indice])
+
+# PANTALLA OPCIONES
+

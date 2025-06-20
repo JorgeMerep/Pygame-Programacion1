@@ -34,3 +34,9 @@ RECT_OPCIONES = pygame.Rect(580, 430, 200, 40)
 RECT_RANKING = pygame.Rect(580, 490, 200, 40)
 RECT_SALIR = pygame.Rect(580, 550, 200, 40)
 
+
+#PANTALLA OPCIONES
+
+FONDO_PANTALLA_OPCIONES = "assets/img/forms/img_6.png"
+MUSICA_PANTALLA_OPCIONES = "assets/audio/music/form_options.ogg"
+
