@@ -50,5 +50,4 @@ def mostrar_opciones_menu(pantalla, fuente_menu, opciones, color):
         texto_render = fuente_menu.render(opciones[indice], True, color)
         pantalla.blit(texto_render, coordenadas[indice])
 
-# PANTALLA OPCIONES
 

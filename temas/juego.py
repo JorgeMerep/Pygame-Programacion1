@@ -1,6 +1,7 @@
 import pygame, sys
 import constantes as constantes
-import funciones as funciones
+import temas.funciones_menu as funciones_menu
+import temas.funciones_opciones as funciones_opciones
 import formularios.menu as menu
 import formularios.opciones as opciones
 
@@ -32,18 +33,17 @@ def play_dbz():
         pantalla.blit(fondo_pantalla, (0, 0))
 
         if formulario_actual == "menu":
-            funciones.mostrar_titulo_y_subtitulo(pantalla, fuente_titulo, fuente_subtitulo, constantes.COLOR_ROJO)
+            funciones_menu.mostrar_titulo_y_subtitulo(pantalla, fuente_titulo, fuente_subtitulo, constantes.COLOR_ROJO)
             lista_opciones = ["JUGAR", "OPCIONES", "RANKING", "SALIR"]
-            funciones.mostrar_opciones_menu(pantalla, fuente_menu, lista_opciones, constantes.COLOR_NARANJA)
+            funciones_menu.mostrar_opciones_menu(pantalla, fuente_menu, lista_opciones, constantes.COLOR_NARANJA)
             formulario_actual = menu.mostrar_menu(pantalla, cola_eventos)
 
         elif formulario_actual == "opciones":
-            fondo_pantalla = pygame.image.load(constantes.FONDO_PANTALLA_OPCIONES)
-            pygame.mixer.music.load(constantes.MUSICA_PANTALLA_OPCIONES)
-            pygame.mixer.music.play(-1)
-            formulario_actual = opciones.mostrar_config(pantalla, cola_eventos)  # ✅ Corrección aquí
+            fondo_pantalla = funciones_opciones.fondo_pantalla_opciones()
+            funciones_opciones.musica_pantalla_opciones()
+            formulario_actual = opciones.mostrar_config(pantalla, cola_eventos)  
 
         elif formulario_actual == "salir":
             ejecutando = False
 
-        pygame.display.flip()  # ✅ Solo una vez al final del ciclo
+        pygame.display.flip()  

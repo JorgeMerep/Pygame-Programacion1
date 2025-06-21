@@ -9,7 +9,7 @@ TAMAÑO_PANTALLA = (PANTALLA_ANCHO, PANTALLA_ALTO)
 
 FPS = (60)
 
-TITULO_JUEGO = 'Dragon Ball Z Trading Card Game'
+TITULO_JUEGO = "Dragon Ball Z Trading Card Game"
 ICONO_JUEGO = "assets/img/icons/ALL_stars.png"
 FONDO_PANTALLA_PRINCIPAL = "assets/img/forms/img_5.png"
 FONDO_PANTALLA_PRINCIPAL_FULL_SCREEN = (0, 0)
@@ -40,3 +40,4 @@ RECT_SALIR = pygame.Rect(580, 550, 200, 40)
 FONDO_PANTALLA_OPCIONES = "assets/img/forms/img_6.png"
 MUSICA_PANTALLA_OPCIONES = "assets/audio/music/form_options.ogg"
 
+TITULO_OPCIONES = "Menu de Configuraciones"

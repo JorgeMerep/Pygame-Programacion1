@@ -6,3 +6,5 @@ def mostrar_config(pantalla: pygame.Surface, cola_eventos: list[pygame.event.Eve
     retorno = "opciones"
 
     pygame.display.set_caption(constantes.TITULO_OPCIONES)
+
+    pass
