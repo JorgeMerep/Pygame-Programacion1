@@ -1,5 +1,5 @@
 import pygame
-import temas.constantes as constantes
+import modulos.constantes as constantes
 
 
 def mostrar_menu(pantalla: pygame.Surface, cola_eventos: list[pygame.event.Event]) -> str:

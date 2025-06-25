@@ -1,9 +1,9 @@
 import pygame, sys
-import constantes as constantes
-import temas.funciones_menu as funciones_menu
-import temas.funciones_opciones as funciones_opciones
-import formularios.menu as menu
-import formularios.opciones as opciones
+import modulos.constantes as constantes
+import modulos.funciones_menu as funciones_menu
+import modulos.funciones_opciones as funciones_opciones
+import modulos.formularios.menu as menu
+import modulos.formularios.opciones as opciones
 
 
 def play_dbz():
@@ -14,7 +14,8 @@ def play_dbz():
     pygame.display.set_icon(icono_pantalla)
 
     fondo_pantalla = pygame.image.load(constantes.FONDO_PANTALLA_PRINCIPAL)
-    pygame.mixer.music.load(constantes.MUSICA_PANTALLA_PRINCIPAL)
+    musica_actual = constantes.MUSICA_PANTALLA_PRINCIPAL
+    pygame.mixer.music.load(musica_actual)
     pygame.mixer.music.play(-1)
 
     fuente_titulo = pygame.font.Font(constantes.FUENTE_TITULO, 64)
@@ -34,13 +35,16 @@ def play_dbz():
 
         if formulario_actual == "menu":
             funciones_menu.mostrar_titulo_y_subtitulo(pantalla, fuente_titulo, fuente_subtitulo, constantes.COLOR_ROJO)
-            lista_opciones = ["JUGAR", "OPCIONES", "RANKING", "SALIR"]
-            funciones_menu.mostrar_opciones_menu(pantalla, fuente_menu, lista_opciones, constantes.COLOR_NARANJA)
+            lista_opciones_menu = ["JUGAR", "OPCIONES", "RANKING", "SALIR"]
+            funciones_menu.mostrar_opciones_menu(pantalla, fuente_menu, lista_opciones_menu, constantes.COLOR_NARANJA)
             formulario_actual = menu.mostrar_menu(pantalla, cola_eventos)
 
         elif formulario_actual == "opciones":
             fondo_pantalla = funciones_opciones.fondo_pantalla_opciones()
-            funciones_opciones.musica_pantalla_opciones()
+            funciones_opciones.mostrar_titulo_y_subtitulo_opciones(pantalla,fuente_titulo, fuente_subtitulo, constantes.COLOR_ROJO)
+            lista_config_opciones = ["MUSICA ON", "MUSICA OFF", "VOLVER ATRAS"]
+            funciones_opciones.mostrar_config_menu_opciones(pantalla,fuente_menu,lista_config_opciones, constantes.COLOR_NARANJA)
+            musica_actual = funciones_opciones.musica_pantalla_opciones(musica_actual)
             formulario_actual = opciones.mostrar_config(pantalla, cola_eventos)  
 
         elif formulario_actual == "salir":

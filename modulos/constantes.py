@@ -28,7 +28,7 @@ FUENTE_MENU = ("assets/fonts/Saiyan-Sans.ttf")
 COLOR_ROJO = (255, 0, 0)
 COLOR_NARANJA = (255, 165, 0)
 
-#RECTANGULOS OPCIONES MENU
+#RECTANGULOS OPCIONES MENU PRINCIPAL
 RECT_JUGAR = pygame.Rect(580, 370, 200, 40)
 RECT_OPCIONES = pygame.Rect(580, 430, 200, 40)
 RECT_RANKING = pygame.Rect(580, 490, 200, 40)
@@ -41,3 +41,9 @@ FONDO_PANTALLA_OPCIONES = "assets/img/forms/img_6.png"
 MUSICA_PANTALLA_OPCIONES = "assets/audio/music/form_options.ogg"
 
 TITULO_OPCIONES = "Menu de Configuraciones"
+
+#RECTANGULOS OPCIONES MENU CONFIG
+RECT_MUSIC_ON = pygame.Rect(550, 310, 200, 40)
+RECT_MUSIC_OFF = pygame.Rect(550, 360, 200, 40)
+RECT_MUSIC_VOLVER_ATRAS = pygame.Rect(550, 580, 200, 40)
+
