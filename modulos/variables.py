@@ -1,5 +1,4 @@
 # ======= PANTALLA ===========
-
 RATIO_SD = (854, 480)
 RATIO_SDP = (800, 600)
 RATIO_HD = (1280, 720)

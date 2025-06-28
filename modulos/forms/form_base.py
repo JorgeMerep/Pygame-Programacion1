@@ -1,4 +1,4 @@
-import pygame as pygame 
+import pygame 
 
 forms_dict = {}
 
@@ -39,5 +39,22 @@ def dibujar(dict_form_datos: dict):
 
 def actualizar(dict_form_datos: dict):
     actualizar_objetos(dict_form_datos)
+
+def reproducir_musica(ruta: str, form_manager: dict):
+    musica_actual = form_manager.get('musica_actual')
+    if musica_actual != ruta:
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load(ruta)
+        pygame.mixer.music.play(-1)
+        form_manager['musica_actual'] = ruta
+
+def activar_musica(dict_form_datos: dict, form_manager: dict):
+    ruta_musica = dict_form_datos.get('ruta_musica')
+    if ruta_musica:
+        reproducir_musica(ruta_musica, form_manager)
+
+
+
+
     
     

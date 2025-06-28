@@ -6,6 +6,7 @@ import modulos.forms.form_manager as form_manager
 def jugar_dragon_ball():
 
     pygame.init()
+    pygame.mixer.init()
     
     pygame.display.set_caption(var.TITULO_JUEGO)
     pantalla = pygame.display.set_mode(var.DIMENSION_PANTALLA)
@@ -18,7 +19,7 @@ def jugar_dragon_ball():
         "nombre": 'JUGADOR',
         "enemigo": 'ENEMIGO',
         'volumen_musica' : 100,
-        'tiempo_finalizado': None
+        'tiempo_finalizado': None,
     }
         
     f_manager = form_manager.crear_form_manager(pantalla, datos_juego)

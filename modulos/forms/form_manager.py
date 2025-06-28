@@ -12,8 +12,10 @@ def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
     form['juego_comenzado'] = False
     form['jugador'] = None
     form['enemigo'] = None
-    
+    form['musica_actua'] = None
     form['jugador'] = datos_juego.get('jugador')
+    
+    #form_base.reproducir_musica(var.RUTA_MUSICA_MENU)
     
     form['lista_forms'] = [
         form_menu_.iniciar_form_menu_principal(
@@ -65,16 +67,20 @@ def actualizar_forms(form_manager: dict, lista_eventos: pygame.event.Event):
     if form_manager.get('lista_forms')[0].get('activo'):
         form_menu_.actualizar(form_manager.get('lista_forms')[0])
         form_menu_.dibujar(form_manager.get('lista_forms')[0])
-    
+        form_menu_.activar_musica(form_manager.get('lista_forms')[0], form_manager)
+
     # FORM OPCIONES
     elif form_manager.get('lista_forms')[1].get('activo'):
         form_opciones.actualizar(form_manager.get('lista_forms')[1])
         form_opciones.dibujar(form_manager.get('lista_forms')[1])
+        form_opciones.activar_musica(form_manager.get('lista_forms')[1], form_manager)
     
     # FORM RANKING
     elif form_manager.get('lista_forms')[2].get('activo'):
         form_ranking.actualizar(form_manager.get('lista_forms')[2])
         form_ranking.dibujar(form_manager.get('lista_forms')[2])
+        form_ranking.activar_musica(form_manager.get('lista_forms')[2], form_manager)
+
 
 
 def actualizar(form_manager: dict, lista_eventos: pygame.event.Event):

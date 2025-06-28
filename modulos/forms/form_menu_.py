@@ -1,4 +1,3 @@
-import pygame as pygame
 import sys
 import modulos.forms.form_base as form_base
 import modulos.variables as var
@@ -37,14 +36,14 @@ def iniciar_form_menu_principal(dict_form_datos: dict):
     return form
 
 def click_empezar(parametro: str):
-    print(parametro)
+    (parametro)
 
 def cambiar_formulario_on_click(parametro: str):
-    print(parametro)
+    (parametro)
     form_base.activar_form(parametro)
 
 def click_salir(parametro: str):
-    print(parametro)
+    (parametro)
     sys.exit()
 
 def dibujar(dict_form_datos: dict):
@@ -52,4 +51,8 @@ def dibujar(dict_form_datos: dict):
 
 def actualizar(dict_form_datos: dict):
     form_base.actualizar(dict_form_datos)
+
+def activar_musica(dict_form_datos: dict, form_manager: dict):
+    form_base.activar_musica(dict_form_datos, form_manager)
+
     

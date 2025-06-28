@@ -1,4 +1,3 @@
-import pygame as pygame
 import modulos.forms.form_base as form_base
 import modulos.variables as var
 import modulos.auxiliar as aux
@@ -78,3 +77,6 @@ def actualizar(dict_form_datos: dict):
     if dict_form_datos.get('activo'):
         inicializar_ranking(dict_form_datos)
     form_base.actualizar(dict_form_datos)
+
+def activar_musica(dict_form_datos: dict, form_manager: dict):
+    form_base.activar_musica(dict_form_datos, form_manager)

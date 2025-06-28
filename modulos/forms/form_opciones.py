@@ -1,4 +1,3 @@
-import pygame as pygame
 import modulos.forms.form_base as form_base
 import modulos.variables as var
 from utn_fra.pygame_widgets import (
@@ -39,3 +38,7 @@ def dibujar(dict_form_datos: dict):
 
 def actualizar(dict_form_datos: dict):
     form_base.actualizar(dict_form_datos)
+
+def activar_musica(dict_form_datos: dict, form_manager: dict):
+    form_base.activar_musica(dict_form_datos, form_manager)
+
