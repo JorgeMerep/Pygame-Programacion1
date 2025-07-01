@@ -14,9 +14,7 @@ def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
     form['enemigo'] = None
     form['musica_actua'] = None
     form['jugador'] = datos_juego.get('jugador')
-    
-    #form_base.reproducir_musica(var.RUTA_MUSICA_MENU)
-    
+        
     form['lista_forms'] = [
         form_menu_.iniciar_form_menu_principal(
             dict_form_datos={
