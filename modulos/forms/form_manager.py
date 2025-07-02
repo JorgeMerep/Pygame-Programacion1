@@ -12,12 +12,14 @@ def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
     form['juego_comenzado'] = False
     form['jugador'] = None
     form['enemigo'] = None
-    form['musica_actua'] = None
+    form['musica_actual'] = None
+    form['musica_habilitada'] = True 
     form['jugador'] = datos_juego.get('jugador')
         
     form['lista_forms'] = [
         form_menu_.iniciar_form_menu_principal(
             dict_form_datos={
+                "form_manager_ref" : form,
                 "nombre":'form_menu', 
                 "pantalla":form.get('pantalla_principal'), 
                 "activo":True,
@@ -30,6 +32,7 @@ def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
         ),
         form_opciones.iniciar_form_opciones(
             dict_form_datos={
+                "form_manager_ref" : form,
                 "nombre":'form_opciones', 
                 "pantalla":form.get('pantalla_principal'), 
                 "activo":True,
@@ -42,6 +45,7 @@ def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
         ),
         form_ranking.iniciar_form_ranking(
             dict_form_datos={
+                "form_manager_ref" : form,
                 "nombre":'form_ranking', 
                 "pantalla":form.get('pantalla_principal'), 
                 "activo":True,
@@ -82,5 +86,5 @@ def actualizar_forms(form_manager: dict, lista_eventos: pygame.event.Event):
 
 
 def actualizar(form_manager: dict, lista_eventos: pygame.event.Event):
-    actualizar_forms(form_manager, lista_eventos)
+    actualizar_forms(form_manager, lista_eventos)    
     

@@ -4,6 +4,7 @@ forms_dict = {}
 
 def crear_form_base(dict_form_datos: dict) -> dict:
     form = {}
+    form['form_manager_ref'] = dict_form_datos.get('form_manager_ref')
     form['nombre'] = dict_form_datos.get('nombre')
     form['pantalla'] = dict_form_datos.get('pantalla')
     form['activo'] = dict_form_datos.get('activo')
@@ -40,9 +41,12 @@ def dibujar(dict_form_datos: dict):
 def actualizar(dict_form_datos: dict):
     actualizar_objetos(dict_form_datos)
 
-def reproducir_musica(ruta: str, form_manager: dict):
+def reproducir_musica(ruta: str, form_manager: dict, forzar: bool = False):
+    if not form_manager.get('musica_habilitada'):
+        return  # No reproducir música si está deshabilitada por mas que cambies de formulario
+    
     musica_actual = form_manager.get('musica_actual')
-    if musica_actual != ruta:
+    if musica_actual != ruta or forzar:
         pygame.mixer.music.stop()
         pygame.mixer.music.load(ruta)
         pygame.mixer.music.play(-1)
