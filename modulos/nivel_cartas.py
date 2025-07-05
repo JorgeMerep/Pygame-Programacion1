@@ -18,6 +18,14 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     nivel_data['cartas_mazo_juego_final_vistas_enemigo'] = [] #Cartas frente del enemigo
     nivel_data['rutas_mazos'] = ''
 
+    nivel_data["hp_total_jugador"] = 0
+    nivel_data["atk_total_jugador"] = 0
+    nivel_data["def_total_jugador"] = 0
+    nivel_data["hp_total_enemigo"] = 0
+    nivel_data["atk_total_enemigo"] = 0
+    nivel_data["def_total_enemigo"] = 0
+
+
     nivel_data['pantalla'] = pantalla
 
     nivel_data['jugador'] = jugador
@@ -70,7 +78,7 @@ def cargar_bd_cartas(nivel_data: dict):
 
 
 def generar_mazo_jugador(nivel_data: dict):
-    print('=============== GENERANDO MAZO FINAL ===============')
+    print('=============== GENERANDO MAZO FINAL JUGADOR ===============')
 
     bd_cartas = nivel_data.get('cartas_mazo_juego')  # Dict con mazos y sus cartas
     cantidades = nivel_data.get('configs').get('cantidades')  # Dict con cantidades por mazo
@@ -88,8 +96,27 @@ def generar_mazo_jugador(nivel_data: dict):
 
     random.shuffle(nivel_data['cartas_mazo_juego_final_jugador'])  # Mezclar el mazo final
 
+    # Inicializar los totales en 0
+    nivel_data["hp_total_jugador"] = 0 
+    nivel_data["atk_total_jugador"] = 0
+    nivel_data["def_total_jugador"] = 0
+    nivel_data["hp_total_enemigo"] = 0
+    nivel_data["atk_total_enemigo"] = 0
+    nivel_data["def_total_enemigo"] = 0
+
+    # Sumar los stats del mazo del jugador
+    for carta_final in nivel_data["cartas_mazo_juego_final_jugador"]:
+        nivel_data["hp_total_jugador"] += carta_final.get("hp", 0)
+        nivel_data["atk_total_jugador"] += carta_final.get("atk", 0)
+        nivel_data["def_total_jugador"] += carta_final.get("def", 0)
+    
+    print(nivel_data.get("hp_total_jugador"))
+    print(nivel_data.get("atk_total_jugador"))
+    print(nivel_data.get("def_total_jugador"))
+
+
 def generar_mazo_enemigo(nivel_data: dict):
-    print('=============== GENERANDO MAZO FINAL ===============')
+    print('=============== GENERANDO MAZO FINAL ENEMIGO===============')
 
     bd_cartas = nivel_data.get('cartas_mazo_juego')  # Dict con mazos y sus cartas
     cantidades = nivel_data.get('configs').get('cantidades')  # Dict con cantidades por mazo
