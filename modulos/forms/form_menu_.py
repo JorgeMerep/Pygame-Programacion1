@@ -1,9 +1,11 @@
 import sys
 import modulos.forms.form_base as form_base
+import modulos.forms.form_juego as form_juego
+import modulos.nivel_cartas as nivel_cartas
 import modulos.variables as var
 import modulos.auxiliar as aux
 from utn_fra.pygame_widgets import (
-    Button, Label, ButtonImage
+    Button, Label,
 )
 
 
@@ -14,7 +16,7 @@ def iniciar_form_menu_principal(dict_form_datos: dict):
     
     form['label_subtitulo'] = Label(x=var.DIMENSION_PANTALLA[0]//2, y=180,text=var.TEXTO_MENU_PRINCIPAL, screen=form.get('pantalla'), font_path=var.RUTA_FUENTE_SAIYAN_SANS, font_size=55)
     
-    form['boton_jugar'] = Button(x=var.DIMENSION_PANTALLA[0]//2, y=370, text=var.BOTON_JUGAR, screen=form.get('pantalla'), font_path=var.RUTA_FUENTE_SAIYAN_SANS,color=var.COLOR_NARANJA, font_size=44, on_click=click_empezar, on_click_param='boton_jugar')
+    form['boton_jugar'] = Button(x=var.DIMENSION_PANTALLA[0]//2, y=370, text=var.BOTON_JUGAR, screen=form.get('pantalla'), font_path=var.RUTA_FUENTE_SAIYAN_SANS,color=var.COLOR_NARANJA, font_size=44, on_click=cambiar_formulario_on_click, on_click_param='form_juego')
 
     form['boton_ranking'] = Button(x=var.DIMENSION_PANTALLA[0]//2, y=445, text=var.BOTON_RANKING, screen=form.get('pantalla'), font_path=var.RUTA_FUENTE_SAIYAN_SANS,color=var.COLOR_NARANJA, font_size=44, on_click=cambiar_formulario_on_click, on_click_param='form_ranking')
 
@@ -39,7 +41,10 @@ def click_empezar(parametro: str):
     (parametro)
 
 def cambiar_formulario_on_click(parametro: str):
-    (parametro)
+    form_juego = form_base.forms_dict[parametro]
+    if parametro == "form_juego":
+        nivel_cartas.inicializar_data_nivel(form_juego.get("nivel"))
+       
     form_base.activar_form(parametro)
 
 def click_salir(parametro: str):

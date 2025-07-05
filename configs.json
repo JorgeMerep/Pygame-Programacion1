@@ -1,0 +1,17 @@
+{
+  "nivel_1": {
+    "cantidades": {
+      "green_deck_expansion_1": 2,
+      "purple_deck_expansion_2": 2
+    },
+    "mazos": {
+      "green_deck_expansion_1": "./assets_Dragon_Ball_TCG/img/decks/green_deck_expansion_1",   
+      "purple_deck_expansion_2": "./assets_Dragon_Ball_TCG/img/decks/purple_deck_expansion_2"
+    },
+    "coordenadas": {
+      "mazo_1": [380,450],
+      "mazo_2": [690,106]
+    }
+  }
+  
+}

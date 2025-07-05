@@ -19,6 +19,7 @@ RUTA_ICONO = './assets_Dragon_Ball_TCG/img/icons/Z_star.png'
 RUTA_FONDO_MENU = "./assets_Dragon_Ball_TCG/img/forms/img_5.png"
 RUTA_FONDO_OPCIONES = "./assets_Dragon_Ball_TCG/img/forms/img_6.png"
 RUTA_FONDO_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_8.png"
+RUTA_FONDO_JUEGO = "./assets_Dragon_Ball_TCG/img/background_cards.png"
 
 # ======= COLORES ===========
 COLOR_NARANJA = (255, 165, 0)
@@ -27,6 +28,7 @@ COLOR_NARANJA = (255, 165, 0)
 RUTA_MUSICA_MENU = "./assets_Dragon_Ball_TCG/audio/music/Chala_Head_Chala.ogg"
 RUTA_MUSICA_OPCIONES = "./assets_Dragon_Ball_TCG/audio/music/form_options.ogg"
 RUTA_MUSICA_RANKING = "./assets_Dragon_Ball_TCG/audio/music/form_ranking.ogg"
+RUTA_MUSICA_JUEGO = "./assets_Dragon_Ball_TCG/audio/music/battle_music.ogg"
 
 # ======= ARCHIVOS ===========
 RUTA_RANKING_CSV = './ranking.csv'
@@ -47,3 +49,11 @@ BOTON_MUSICA_OFF = "MUSICA OFF"
 TEXTO_MENU_PRINCIPAL = "MENU PRINCIPAL"
 TEXTO_OPCIONES = "OPCIONES"
 TEXTO_RANKING = "RANKING TOP 10"
+
+# ======= TIMER ===========
+TIMER = 60
+
+# ======= JSON ===========
+RUTA_CONFIGS_JSON = "./configs.json"
+
+

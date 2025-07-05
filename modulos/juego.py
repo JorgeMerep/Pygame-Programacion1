@@ -16,7 +16,7 @@ def jugar_dragon_ball():
     datos_juego = {
         "puntaje": 0,
         "cantidad_vidas": var.CANTIDAD_VIDAS,
-        "nombre": 'JUGADOR',
+        "jugador": 'JUGADOR',
         "enemigo": 'ENEMIGO',
         'volumen_musica' : 100,
         'tiempo_finalizado': None,
