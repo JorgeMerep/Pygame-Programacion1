@@ -10,9 +10,9 @@
     },
     "coordenadas": {
       "mazo_1_jugador": [380,450],
-      "mazo_2_jugador": [690,450],
+      "mazo_2_jugador": [670,450],
       "mazo_1_enemigo": [380,115],
-      "mazo_2_enemigo": [690,115]
+      "mazo_2_enemigo": [670,115]
     }
   } 
 }

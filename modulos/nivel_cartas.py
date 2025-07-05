@@ -49,8 +49,6 @@ def cargar_configs_nivel(nivel_data: dict):
         nivel_data['configs'] = configs_globales.get(f'nivel_{nivel_data.get("numero_nivel")}')
         print(f'SEGUNDO PRINT {nivel_data.get("configs")}')
         nivel_data['rutas_mazos'] = nivel_data.get('configs').get('mazos')
-        nivel_data['coords_iniciales'] = nivel_data.get('configs').get('coordenada_mazo_1')
-        nivel_data['coords_finales'] = nivel_data.get('configs').get('coordenada_mazo_2')
 
 def cargar_bd_cartas(nivel_data: dict):
     if not nivel_data.get('juego_finalizado'):
@@ -114,23 +112,28 @@ def eventos(nivel_data: dict, cola_eventos: list[pygame.event.Event]):
     for evento in cola_eventos:
         if evento.type == pygame.MOUSEBUTTONDOWN:
             print(f'Coordenada: {evento.pos}')
-            # verificar la colision con el boton
+            # verificar la colision con el boton del jugador
             if nivel_data.get('cartas_mazo_juego_final_jugador') and\
                nivel_data.get('cartas_mazo_juego_final_jugador')[-1].get('rect').collidepoint(evento.pos) and\
                not nivel_data.get('cartas_mazo_juego_final_jugador')[-1].get('visible'):
-                var.SOUND.play()
-                carta.asignar_coordenadas_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1], nivel_data.get('coords_finales'))
+                carta.asignar_coordenadas_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1], nivel_data.get('configs').get('coordenadas').get('mazo_2_jugador'))
+
                 carta.cambiar_visibilidad_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1])
                 
                 carta_vista = nivel_data.get('cartas_mazo_juego_final_jugador').pop()
                 nivel_data.get('cartas_mazo_juego_final_vistas_jugador').append(carta_vista)
+
+            # verificar la colision con el boton del jugador
+            if nivel_data.get('cartas_mazo_juego_final_enemigo') and\
+               nivel_data.get('cartas_mazo_juego_final_enemigo')[-1].get('rect').collidepoint(evento.pos) and\
+               not nivel_data.get('cartas_mazo_juego_final_enemigo')[-1].get('visible'):
+                carta.asignar_coordenadas_carta(nivel_data.get('cartas_mazo_juego_final_enemigo')[-1], nivel_data.get('configs').get('coordenadas').get('mazo_2_enemigo'))
+
+                carta.cambiar_visibilidad_carta(nivel_data.get('cartas_mazo_juego_final_enemigo')[-1])
                 
-                carta_actual = nivel_data.get('cartas_mazo_juego_final_vistas_jugador')[-1]
-                jugador_humano.sumar_puntaje_carta_actual(nivel_data.get('jugador'), carta_actual)
-                
-                print(f'Puntaje Actual: {jugador_humano.get_puntaje_actual(nivel_data["jugador"])}')
-                
-                print(f'Frase actual: {nivel_data.get('cartas_mazo_juego_final_vistas_jugador')[-1].get('frase')}')
+                carta_vista = nivel_data.get('cartas_mazo_juego_final_enemigo').pop()
+                nivel_data.get('cartas_mazo_juego_final_vistas_enemigo').append(carta_vista)
+                                         
 
 def tiempo_esta_terminado(nivel_data: dict):
     return nivel_data.get('timer_partida') <= 0
