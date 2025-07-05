@@ -38,7 +38,8 @@ def inicializar_data_nivel(nivel_data: dict):
     print('ESTOY GASTANDO RECURSOS Y CARGANDO TODA LA DATA DEL LEVEL')
     cargar_configs_nivel(nivel_data)
     cargar_bd_cartas(nivel_data)
-    generar_mazo(nivel_data)
+    generar_mazo_jugador(nivel_data)
+    generar_mazo_enemigo(nivel_data)
 
 def cargar_configs_nivel(nivel_data: dict):
     if not nivel_data.get('juego_finalizado') and not nivel_data.get('data_cargada'):
@@ -70,7 +71,7 @@ def cargar_bd_cartas(nivel_data: dict):
         print("BASE DE DATOS DE CARTAS CARGA COMPLETA")
 
 
-def generar_mazo(nivel_data: dict):
+def generar_mazo_jugador(nivel_data: dict):
     print('=============== GENERANDO MAZO FINAL ===============')
 
     bd_cartas = nivel_data.get('cartas_mazo_juego')  # Dict con mazos y sus cartas
@@ -78,8 +79,8 @@ def generar_mazo(nivel_data: dict):
 
     nivel_data['cartas_mazo_juego_final_jugador'] = []
 
-    coordenada_inicial = nivel_data.get('configs').get('coordenadas').get('mazo_1')
-
+    coordenada_inicial = nivel_data.get('configs').get('coordenadas').get('mazo_1_jugador')
+    
     for mazo, cantidad in cantidades.items():
         for indice_cartas in range (cantidad):
             carta_base = bd_cartas.get(mazo).pop() #Levantamos la carta base de la DB y usamos la ultima y la quitamos de la DB
@@ -89,7 +90,24 @@ def generar_mazo(nivel_data: dict):
 
     random.shuffle(nivel_data['cartas_mazo_juego_final_jugador'])  # Mezclar el mazo final
 
+def generar_mazo_enemigo(nivel_data: dict):
+    print('=============== GENERANDO MAZO FINAL ===============')
 
+    bd_cartas = nivel_data.get('cartas_mazo_juego')  # Dict con mazos y sus cartas
+    cantidades = nivel_data.get('configs').get('cantidades')  # Dict con cantidades por mazo
+
+    nivel_data['cartas_mazo_juego_final_enemigo'] = []
+
+    coordenada_inicial = nivel_data.get('configs').get('coordenadas').get('mazo_1_enemigo')
+    
+    for mazo, cantidad in cantidades.items():
+        for indice_cartas in range (cantidad):
+            carta_base = bd_cartas.get(mazo).pop() #Levantamos la carta base de la DB y usamos la ultima y la quitamos de la DB
+            carta_final = carta.inicializar_carta(carta_base, coordenada_inicial)
+            nivel_data['cartas_mazo_juego_final_enemigo'].append(carta_final)
+            print(carta_final)
+
+    random.shuffle(nivel_data['cartas_mazo_juego_final_enemigo'])  # Mezclar el mazo final
 
 def eventos(nivel_data: dict, cola_eventos: list[pygame.event.Event]):
     
@@ -140,6 +158,12 @@ def dibujar_cartas(nivel_data: dict):
         
     if nivel_data.get('cartas_mazo_juego_final_vistas_jugador'):
         carta.dibujar_carta(nivel_data.get('cartas_mazo_juego_final_vistas_jugador')[-1], nivel_data.get('pantalla'))
+    
+    if nivel_data.get('cartas_mazo_juego_final_enemigo'):
+        carta.dibujar_carta(nivel_data.get('cartas_mazo_juego_final_enemigo')[-1], nivel_data.get('pantalla'))
+        
+    if nivel_data.get('cartas_mazo_juego_final_vistas_enemigo'):
+        carta.dibujar_carta(nivel_data.get('cartas_mazo_juego_final_vistas_enemigo')[-1], nivel_data.get('pantalla'))
 
 def actualizar_cartas(nivel_data: dict, cola_eventos: list[pygame.event.Event]):
     eventos(nivel_data, cola_eventos)

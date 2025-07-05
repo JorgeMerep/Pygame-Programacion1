@@ -9,9 +9,10 @@
       "purple_deck_expansion_2": "./assets_Dragon_Ball_TCG/img/decks/purple_deck_expansion_2"
     },
     "coordenadas": {
-      "mazo_1": [380,450],
-      "mazo_2": [690,106]
+      "mazo_1_jugador": [380,450],
+      "mazo_2_jugador": [690,450],
+      "mazo_1_enemigo": [380,115],
+      "mazo_2_enemigo": [690,115]
     }
-  }
-  
+  } 
 }
