@@ -1,4 +1,4 @@
-import pygame as pygame
+import pygame
 import modulos.variables as var
 import modulos.forms.form_menu_ as form_menu_
 import modulos.forms.form_opciones as form_opciones

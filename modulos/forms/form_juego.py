@@ -140,16 +140,29 @@ def dibujar(dict_form_datos: dict):
 
 
 def click_jugar_partida(parametro: dict):
-    #form_juego = form_base.forms_dict[parametro]
-    #if parametro == "form_juego":
-    nivel_cartas.jugar_partida(parametro)
-       
-    #form_base.activar_form(parametro)
+    if not nivel_cartas.juego_terminado(parametro):
+        nivel_cartas.jugar_partida(parametro)
 
+       
 def actualizar(dict_form_datos: dict):
     form_base.actualizar(dict_form_datos)
 
     nivel_cartas.actualizar_cartas(nivel_data=dict_form_datos.get("nivel"))
+
+    dict_form_datos['label_hp_jugador'].update_text(f'HP: {dict_form_datos.get("nivel").get("hp_total_jugador")}',
+    (255, 0, 0))
+
+    dict_form_datos['label_def_jugador'].update_text(f'DEF: {dict_form_datos.get("nivel").get("def_total_jugador")}', (255, 0, 0))
+    
+    dict_form_datos['label_atk_jugador'].update_text(f'ATK: {dict_form_datos.get("nivel").get("atk_total_jugador")}', (255, 0, 0))
+
+    dict_form_datos['label_hp_enemigo'].update_text(f'HP: {dict_form_datos.get("nivel").get("hp_total_enemigo")}', 
+    (255, 0, 0))
+    
+    dict_form_datos['label_def_enemigo'].update_text(f'DEF: {dict_form_datos.get("nivel").get("def_total_enemigo")}', (255, 0, 0)) 
+    
+    dict_form_datos['label_atk_enemigo'].update_text(f'ATK: {dict_form_datos.get("nivel").get("atk_total_enemigo")}', (255, 0, 0))
+
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
     form_base.activar_musica(dict_form_datos, form_manager)

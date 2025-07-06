@@ -1,8 +1,8 @@
 {
   "nivel_1": {
     "cantidades": {
-      "green_deck_expansion_1": 2,
-      "purple_deck_expansion_2": 2
+      "green_deck_expansion_1": 1,
+      "purple_deck_expansion_2": 1
     },
     "mazos": {
       "green_deck_expansion_1": "./assets_Dragon_Ball_TCG/img/decks/green_deck_expansion_1",   

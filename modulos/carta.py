@@ -41,6 +41,18 @@ def obtener_def_carta(card_dict: dict):
 def obtener_bonus_carta(card_dict: dict):
     return card_dict.get('bonus')
 
+def obtener_ataque_mas_bonus(card_dict: dict):
+    ataque_mas_bonus = obtener_atk_carta(card_dict) * (1+(obtener_bonus_carta(card_dict))/100)
+    return int(ataque_mas_bonus)
+
+def obtener_hp_mas_bonus(card_dict: dict):
+    hp_mas_bonus = obtener_hp_carta(card_dict) * (1+(obtener_bonus_carta(card_dict))/100)
+    return int(hp_mas_bonus)
+
+def obtener_def_mas_bonus(card_dict: dict):
+    def_mas_bonus = obtener_def_carta(card_dict) * (1+(obtener_bonus_carta(card_dict))/100)
+    return int(def_mas_bonus)
+
 def dibujar_carta(datos_carta: dict, pantalla: pygame.Surface):
     
     if datos_carta.get('visible'):

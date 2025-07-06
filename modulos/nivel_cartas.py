@@ -92,7 +92,6 @@ def generar_mazo_jugador(nivel_data: dict):
             carta_base = bd_cartas.get(mazo).pop() #Levantamos la carta base de la DB y usamos la ultima y la quitamos de la DB
             carta_final = carta.inicializar_carta(carta_base, coordenada_inicial)
             nivel_data['cartas_mazo_juego_final_jugador'].append(carta_final)
-            print(carta_final)
 
     random.shuffle(nivel_data['cartas_mazo_juego_final_jugador'])  # Mezclar el mazo final
 
@@ -110,9 +109,6 @@ def generar_mazo_jugador(nivel_data: dict):
         nivel_data["atk_total_jugador"] += carta_final.get("atk", 0)
         nivel_data["def_total_jugador"] += carta_final.get("def", 0)
     
-    print(nivel_data.get("hp_total_jugador"))
-    print(nivel_data.get("atk_total_jugador"))
-    print(nivel_data.get("def_total_jugador"))
 
 
 def generar_mazo_enemigo(nivel_data: dict):
@@ -130,7 +126,6 @@ def generar_mazo_enemigo(nivel_data: dict):
             carta_base = bd_cartas.get(mazo).pop() #Levantamos la carta base de la DB y usamos la ultima y la quitamos de la DB
             carta_final = carta.inicializar_carta(carta_base, coordenada_inicial)
             nivel_data['cartas_mazo_juego_final_enemigo'].append(carta_final)
-            print(carta_final)
 
     random.shuffle(nivel_data['cartas_mazo_juego_final_enemigo'])  # Mezclar el mazo final
 
@@ -139,10 +134,7 @@ def generar_mazo_enemigo(nivel_data: dict):
         nivel_data["hp_total_enemigo"] += carta_final.get("hp", 0)
         nivel_data["atk_total_enemigo"] += carta_final.get("atk", 0)
         nivel_data["def_total_enemigo"] += carta_final.get("def", 0)
-    
-    print(nivel_data.get("hp_total_enemigo"))
-    print(nivel_data.get("atk_total_enemigo"))
-    print(nivel_data.get("def_total_enemigo"))
+
 
 def jugar_partida(nivel_data: dict):
     
@@ -153,8 +145,8 @@ def jugar_partida(nivel_data: dict):
 
         carta.cambiar_visibilidad_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1])
         
-        carta_vista = nivel_data.get('cartas_mazo_juego_final_jugador').pop()
-        nivel_data.get('cartas_mazo_juego_final_vistas_jugador').append(carta_vista)
+        carta_vista_jugador = nivel_data.get('cartas_mazo_juego_final_jugador').pop()
+        nivel_data.get('cartas_mazo_juego_final_vistas_jugador').append(carta_vista_jugador)
 
     # ENEMIGO: Verificar cartas del mazo. Visibilidad. Dar vuelta carta
     if nivel_data.get('cartas_mazo_juego_final_enemigo') and\
@@ -163,15 +155,35 @@ def jugar_partida(nivel_data: dict):
 
         carta.cambiar_visibilidad_carta(nivel_data.get('cartas_mazo_juego_final_enemigo')[-1])
         
-        carta_vista = nivel_data.get('cartas_mazo_juego_final_enemigo').pop()
-        nivel_data.get('cartas_mazo_juego_final_vistas_enemigo').append(carta_vista)
-                                         
+        carta_vista_enemigo = nivel_data.get('cartas_mazo_juego_final_enemigo').pop()
+        nivel_data.get('cartas_mazo_juego_final_vistas_enemigo').append(carta_vista_enemigo)
+
+    # CHEQUEAR SI AMBOS MAZOS ESTAN VACIOS PREVIO A HACER LA EVALUACION DE STATS
+    evaluar_stats_carta_vista(carta_vista_jugador, carta_vista_enemigo, nivel_data)
+
+def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: dict, nivel_data: dict):
+    ataque_mas_bonus_jugador = carta.obtener_ataque_mas_bonus(carta_vista_jugador)
+    ataque_mas_bonus_enemigo = carta.obtener_ataque_mas_bonus(carta_vista_enemigo)
+
+    if ataque_mas_bonus_jugador > ataque_mas_bonus_enemigo:
+        defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_enemigo)
+        nivel_data["def_total_enemigo"] -= defensa_perdida
+        hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_enemigo)
+        nivel_data["hp_total_enemigo"] -= hp_perdida
+        nivel_data["atk_total_enemigo"] -= ataque_mas_bonus_enemigo   
+    else:
+        defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_jugador)
+        nivel_data["def_total_jugador"] -= defensa_perdida
+        hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_jugador)
+        nivel_data["hp_total_jugador"] -= hp_perdida
+        nivel_data["atk_total_jugador"] -= ataque_mas_bonus_jugador   
+
 
 def tiempo_esta_terminado(nivel_data: dict):
     return nivel_data.get('timer_partida') <= 0
 
 def mazo_esta_vacio(nivel_data: dict):
-    return len(nivel_data.get('cartas_mazo_juego_final_jugador')) == 0
+    return len(nivel_data.get('cartas_mazo_juego_final_jugador')) == 0 and len(nivel_data.get("cartas_mazo_juego_final_enemigo")) == 0
 
 def check_juego_terminado(nivel_data: dict):
     if mazo_esta_vacio(nivel_data) or\
@@ -202,8 +214,11 @@ def dibujar_cartas(nivel_data: dict):
 
 def actualizar_cartas(nivel_data: dict):
     check_juego_terminado(nivel_data)
-    if juego_terminado(nivel_data) and not nivel_data.get('puntaje_guardado'):
+    if juego_terminado(nivel_data):
         pass
+        
+        
+       
         #jugador_humano.actualizar_puntaje_total(nivel_data.get("jugador"))
         # nombre_elegido = rd.choice(var.nombres)
         # jugador_humano.set_nombre(nivel_data.get("jugador"), nombre_elegido)
