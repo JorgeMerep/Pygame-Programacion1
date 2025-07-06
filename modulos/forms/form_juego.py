@@ -21,7 +21,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     y=520,
     text=f"HP: {form['nivel'].get('hp_total_jugador', 0)}",
     screen=form.get('pantalla'),
-    font_path=var.RUTA_FUENTE_SAIYAN_SANS,
+    font_path=var.RUTA_FUENTE_ALAGARD,
     font_size=30,
     )
 
@@ -30,7 +30,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         y=540,
         text=f"ATK: {form['nivel'].get('atk_total_jugador', 0)}",
         screen=form.get('pantalla'),
-        font_path=var.RUTA_FUENTE_SAIYAN_SANS,
+        font_path=var.RUTA_FUENTE_ALAGARD,
         font_size=20,
     )
 
@@ -39,7 +39,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     y=560,
     text=f"DEF: {form['nivel'].get('def_total_jugador', 0)}",
     screen=form.get('pantalla'),
-    font_path=var.RUTA_FUENTE_SAIYAN_SANS,
+    font_path=var.RUTA_FUENTE_ALAGARD,
     font_size=20,
     )
 
@@ -48,7 +48,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         y=190,
         text=f"HP: {form['nivel'].get('hp_total_enemigo', 0)}",
         screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        font_path=var.RUTA_FUENTE_ALAGARD, 
         font_size=30)
     
     form["label_atk_enemigo"] = Label(
@@ -56,7 +56,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         y=210,
         text=f"ATK: {form['nivel'].get('atk_total_enemigo', 0)}",
         screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        font_path=var.RUTA_FUENTE_ALAGARD, 
         font_size=20)
     
     form["label_def_enemigo"] = Label(
@@ -64,8 +64,19 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         y=230,
         text=f"DEF: {form['nivel'].get('def_total_enemigo', 0)}",
         screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        font_path=var.RUTA_FUENTE_ALAGARD, 
         font_size=20)
+    
+    form["boton_jugar"] = Button(
+        x=1200, 
+        y=390, 
+        text=var.BOTON_JUGAR, 
+        screen=form.get('pantalla'), 
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS,
+        color=var.COLOR_NARANJA, 
+        font_size=40, 
+        on_click= "", 
+        on_click_param= "")
 
    
     form['reloj'] = pygame.time.Clock()
@@ -82,7 +93,8 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         form.get("label_def_jugador"),
         form.get("label_hp_enemigo"),
         form.get("label_atk_enemigo"),
-        form.get("label_def_enemigo")     
+        form.get("label_def_enemigo"),
+        form.get("boton_jugar")     
     ]
     
     form_base.forms_dict[dict_form_datos.get('nombre')] = form
@@ -92,17 +104,10 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
 def dibujar(dict_form_datos: dict):
     form_base.dibujar(dict_form_datos)
 
-    print(dict_form_datos.get('lista_objetos'))
-
     nivel_cartas.dibujar_cartas(nivel_data=dict_form_datos.get("nivel"))
 
 def actualizar(dict_form_datos: dict, lista_eventos: list[pygame.event.Event]):
     form_base.actualizar(dict_form_datos)
-
-    dict_form_datos['label_hp_jugador'].update_text(
-    f'HP: {dict_form_datos.get("nivel").get("hp_total_jugador")}', 
-    (255, 0, 0)
-)
 
     nivel_cartas.actualizar_cartas(nivel_data=dict_form_datos.get("nivel"), cola_eventos=lista_eventos)
 

@@ -134,6 +134,16 @@ def generar_mazo_enemigo(nivel_data: dict):
 
     random.shuffle(nivel_data['cartas_mazo_juego_final_enemigo'])  # Mezclar el mazo final
 
+    # Sumar los stats del mazo del jugador
+    for carta_final in nivel_data["cartas_mazo_juego_final_enemigo"]:
+        nivel_data["hp_total_enemigo"] += carta_final.get("hp", 0)
+        nivel_data["atk_total_enemigo"] += carta_final.get("atk", 0)
+        nivel_data["def_total_enemigo"] += carta_final.get("def", 0)
+    
+    print(nivel_data.get("hp_total_enemigo"))
+    print(nivel_data.get("atk_total_enemigo"))
+    print(nivel_data.get("def_total_enemigo"))
+
 def eventos(nivel_data: dict, cola_eventos: list[pygame.event.Event]):
     
     for evento in cola_eventos:

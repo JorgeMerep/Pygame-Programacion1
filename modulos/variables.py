@@ -23,6 +23,7 @@ RUTA_FONDO_JUEGO = "./assets_Dragon_Ball_TCG/img/background_cards.png"
 
 # ======= COLORES ===========
 COLOR_NARANJA = (255, 165, 0)
+COLOR_ROJO = (255, 0, 0)
 
 # ======= MUSICA ===========
 RUTA_MUSICA_MENU = "./assets_Dragon_Ball_TCG/audio/music/Chala_Head_Chala.ogg"
