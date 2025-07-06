@@ -57,4 +57,19 @@ TIMER = 60
 # ======= JSON ===========
 RUTA_CONFIGS_JSON = "./configs.json"
 
+# ======= RUTA IMAGE BUTTONS ===========
+RUTA_IMAGEBUTTON_JUGAR = "./assets_Dragon_Ball_TCG/img/buttons_image/btn_play_hand.png"
+RUTA_IMAGEBUTTON_HEAL = "./assets_Dragon_Ball_TCG/img/buttons_image/heal.png"
+RUTA_IMAGEBUTTON_SHIELD = "./assets_Dragon_Ball_TCG/img/buttons_image/shield.png"
+
+# ======= SONIDO ===========
+SONIDO_HEAL = "./assets_Dragon_Ball_TCG/audio/sounds/heal_activated.ogg"
+SONIDO_SHIELD = "./assets_Dragon_Ball_TCG/audio/sounds/shield_activated.ogg"
+SONIDO_JUGAR = "./assets_Dragon_Ball_TCG/audio/sounds/click_scouter.ogg"
+
+
+
+
+
+
 

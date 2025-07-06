@@ -99,7 +99,7 @@ def actualizar_forms(form_manager: dict, lista_eventos: pygame.event.Event):
 
     # FORM JUEGO
     elif form_manager.get('lista_forms')[3].get('activo'):
-        form_juego.actualizar(form_manager.get('lista_forms')[3], lista_eventos)
+        form_juego.actualizar(form_manager.get('lista_forms')[3])
         form_juego.dibujar(form_manager.get('lista_forms')[3])
         form_juego.activar_musica(form_manager.get('lista_forms')[3], form_manager)
 

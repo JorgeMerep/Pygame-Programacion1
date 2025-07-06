@@ -3,7 +3,7 @@ import modulos.forms.form_base as form_base
 import modulos.variables as var
 import modulos.nivel_cartas as nivel_cartas
 from utn_fra.pygame_widgets import (
-Label,Button
+Label,ButtonImageSound
 )
 
 def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
@@ -67,16 +67,46 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         font_path=var.RUTA_FUENTE_ALAGARD, 
         font_size=20)
     
-    form["boton_jugar"] = Button(
+    form["boton_jugar"] = ButtonImageSound(
         x=1200, 
-        y=390, 
-        text=var.BOTON_JUGAR, 
-        screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_SAIYAN_SANS,
-        color=var.COLOR_NARANJA, 
-        font_size=40, 
+        y=385,
+        width= 130,
+        height= 50, 
+        text= "", 
+        screen=form.get('pantalla'),
+        image_path= var.RUTA_IMAGEBUTTON_JUGAR,
+        sound_path= var.SONIDO_JUGAR,
+        font_size= "", 
+        on_click= click_jugar_partida, 
+        on_click_param= form.get("nivel"))
+    
+    form["boton_heal"] = ButtonImageSound(
+        x=1200, 
+        y=570,
+        width= 130,
+        height= 45, 
+        text= "", 
+        screen=form.get('pantalla'),
+        image_path= var.RUTA_IMAGEBUTTON_HEAL,
+        sound_path= var.SONIDO_HEAL,
+        font_size= "", 
         on_click= "", 
         on_click_param= "")
+    
+    form["boton_shield"] = ButtonImageSound(
+        x=1200, 
+        y=620,
+        width= 130,
+        height= 45, 
+        text= "", 
+        screen=form.get('pantalla'),
+        image_path= var.RUTA_IMAGEBUTTON_SHIELD,
+        sound_path= var.SONIDO_SHIELD,
+        font_size= "", 
+        on_click= "", 
+        on_click_param= "")
+    
+    
 
    
     form['reloj'] = pygame.time.Clock()
@@ -94,7 +124,9 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         form.get("label_hp_enemigo"),
         form.get("label_atk_enemigo"),
         form.get("label_def_enemigo"),
-        form.get("boton_jugar")     
+        form.get("boton_jugar"),
+        form.get("boton_heal"),
+        form.get("boton_shield"),   
     ]
     
     form_base.forms_dict[dict_form_datos.get('nombre')] = form
@@ -106,10 +138,18 @@ def dibujar(dict_form_datos: dict):
 
     nivel_cartas.dibujar_cartas(nivel_data=dict_form_datos.get("nivel"))
 
-def actualizar(dict_form_datos: dict, lista_eventos: list[pygame.event.Event]):
+
+def click_jugar_partida(parametro: dict):
+    #form_juego = form_base.forms_dict[parametro]
+    #if parametro == "form_juego":
+    nivel_cartas.jugar_partida(parametro)
+       
+    #form_base.activar_form(parametro)
+
+def actualizar(dict_form_datos: dict):
     form_base.actualizar(dict_form_datos)
 
-    nivel_cartas.actualizar_cartas(nivel_data=dict_form_datos.get("nivel"), cola_eventos=lista_eventos)
+    nivel_cartas.actualizar_cartas(nivel_data=dict_form_datos.get("nivel"))
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
     form_base.activar_musica(dict_form_datos, form_manager)

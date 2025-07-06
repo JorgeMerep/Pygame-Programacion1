@@ -144,32 +144,27 @@ def generar_mazo_enemigo(nivel_data: dict):
     print(nivel_data.get("atk_total_enemigo"))
     print(nivel_data.get("def_total_enemigo"))
 
-def eventos(nivel_data: dict, cola_eventos: list[pygame.event.Event]):
+def jugar_partida(nivel_data: dict):
     
-    for evento in cola_eventos:
-        if evento.type == pygame.MOUSEBUTTONDOWN:
-            print(f'Coordenada: {evento.pos}')
-            # verificar la colision con el boton del jugador
-            if nivel_data.get('cartas_mazo_juego_final_jugador') and\
-               nivel_data.get('cartas_mazo_juego_final_jugador')[-1].get('rect').collidepoint(evento.pos) and\
-               not nivel_data.get('cartas_mazo_juego_final_jugador')[-1].get('visible'):
-                carta.asignar_coordenadas_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1], nivel_data.get('configs').get('coordenadas').get('mazo_2_jugador'))
+    # JUGADOR: Verificar cartas del mazo. Visibilidad. Dar vuelta carta
+    if nivel_data.get('cartas_mazo_juego_final_jugador') and\
+        not nivel_data.get('cartas_mazo_juego_final_jugador')[-1].get('visible'):
+        carta.asignar_coordenadas_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1], nivel_data.get('configs').get('coordenadas').get('mazo_2_jugador'))
 
-                carta.cambiar_visibilidad_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1])
-                
-                carta_vista = nivel_data.get('cartas_mazo_juego_final_jugador').pop()
-                nivel_data.get('cartas_mazo_juego_final_vistas_jugador').append(carta_vista)
+        carta.cambiar_visibilidad_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1])
+        
+        carta_vista = nivel_data.get('cartas_mazo_juego_final_jugador').pop()
+        nivel_data.get('cartas_mazo_juego_final_vistas_jugador').append(carta_vista)
 
-            # verificar la colision con el boton del jugador
-            if nivel_data.get('cartas_mazo_juego_final_enemigo') and\
-               nivel_data.get('cartas_mazo_juego_final_enemigo')[-1].get('rect').collidepoint(evento.pos) and\
-               not nivel_data.get('cartas_mazo_juego_final_enemigo')[-1].get('visible'):
-                carta.asignar_coordenadas_carta(nivel_data.get('cartas_mazo_juego_final_enemigo')[-1], nivel_data.get('configs').get('coordenadas').get('mazo_2_enemigo'))
+    # ENEMIGO: Verificar cartas del mazo. Visibilidad. Dar vuelta carta
+    if nivel_data.get('cartas_mazo_juego_final_enemigo') and\
+        not nivel_data.get('cartas_mazo_juego_final_enemigo')[-1].get('visible'):
+        carta.asignar_coordenadas_carta(nivel_data.get('cartas_mazo_juego_final_enemigo')[-1], nivel_data.get('configs').get('coordenadas').get('mazo_2_enemigo'))
 
-                carta.cambiar_visibilidad_carta(nivel_data.get('cartas_mazo_juego_final_enemigo')[-1])
-                
-                carta_vista = nivel_data.get('cartas_mazo_juego_final_enemigo').pop()
-                nivel_data.get('cartas_mazo_juego_final_vistas_enemigo').append(carta_vista)
+        carta.cambiar_visibilidad_carta(nivel_data.get('cartas_mazo_juego_final_enemigo')[-1])
+        
+        carta_vista = nivel_data.get('cartas_mazo_juego_final_enemigo').pop()
+        nivel_data.get('cartas_mazo_juego_final_vistas_enemigo').append(carta_vista)
                                          
 
 def tiempo_esta_terminado(nivel_data: dict):
@@ -205,13 +200,13 @@ def dibujar_cartas(nivel_data: dict):
     if nivel_data.get('cartas_mazo_juego_final_vistas_enemigo'):
         carta.dibujar_carta(nivel_data.get('cartas_mazo_juego_final_vistas_enemigo')[-1], nivel_data.get('pantalla'))
 
-def actualizar_cartas(nivel_data: dict, cola_eventos: list[pygame.event.Event]):
-    eventos(nivel_data, cola_eventos)
+def actualizar_cartas(nivel_data: dict):
     check_juego_terminado(nivel_data)
     if juego_terminado(nivel_data) and not nivel_data.get('puntaje_guardado'):
-        jugador_humano.actualizar_puntaje_total(nivel_data.get("jugador"))
+        pass
+        #jugador_humano.actualizar_puntaje_total(nivel_data.get("jugador"))
         # nombre_elegido = rd.choice(var.nombres)
         # jugador_humano.set_nombre(nivel_data.get("jugador"), nombre_elegido)
         # aux.guardar_ranking(nivel_data.get('jugador'))
-        nivel_data['puntaje_guardado'] = True
-        print(f'Puntaje acumulado: {jugador_humano.get_puntaje_total(nivel_data.get("jugador"))}')
+        #nivel_data['puntaje_guardado'] = True
+        #print(f'Puntaje acumulado: {jugador_humano.get_puntaje_total(nivel_data.get("jugador"))}')
