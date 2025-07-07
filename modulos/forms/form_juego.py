@@ -75,6 +75,15 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     font_path=var.RUTA_FUENTE_ALAGARD,
     font_size=40,
     )
+
+    form["label_timer"] = Label(
+    x=1150,
+    y=50,
+    text=f"TIMER: {form['nivel'].get('timer_partida', 0)}",
+    screen=form.get('pantalla'),
+    font_path=var.RUTA_FUENTE_ALAGARD,
+    font_size=40,
+    )
     
     form["boton_jugar"] = ButtonImageSound(
         x=1200, 
@@ -134,6 +143,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         form.get("label_atk_enemigo"),
         form.get("label_def_enemigo"),
         form.get("label_puntaje_partida"),
+        form.get("label_timer"),
         form.get("boton_jugar"),
         form.get("boton_heal"),
         form.get("boton_shield"),   
@@ -159,6 +169,8 @@ def actualizar(dict_form_datos: dict):
 
     nivel_cartas.actualizar_cartas(nivel_data=dict_form_datos.get("nivel"))
 
+    actualizar_timer(dict_form_datos)
+
     dict_form_datos['label_hp_jugador'].update_text(f'HP: {dict_form_datos.get("nivel").get("hp_total_jugador")}',
     (255, 0, 0))
 
@@ -175,6 +187,15 @@ def actualizar(dict_form_datos: dict):
 
     dict_form_datos['label_puntaje_partida'].update_text(f'PUNTAJE: {dict_form_datos.get('jugador').get('puntaje_actual', 0)} - {dict_form_datos.get('enemigo').get('puntaje_actual', 0)}', (255, 0, 0))
 
+    dict_form_datos['label_timer'].update_text(f'TIMER: {dict_form_datos.get("nivel").get("timer_partida")}', 
+    (255, 0, 0))
+
+def actualizar_timer(dict_form_data: dict):
+    if dict_form_data.get('nivel').get('timer_partida') > 0:
+        tiempo_actual = pygame.time.get_ticks()
+        if tiempo_actual - dict_form_data.get('first_last_timer') > 1000:
+            dict_form_data.get('nivel')['timer_partida'] -= 1
+            dict_form_data['first_last_timer'] = tiempo_actual
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
     form_base.activar_musica(dict_form_datos, form_manager)

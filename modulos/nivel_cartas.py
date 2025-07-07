@@ -35,6 +35,7 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     
     nivel_data['juego_finalizado'] = False
     nivel_data['puntaje_guardado'] = False
+    
     nivel_data['timer_partida'] = var.TIMER
     nivel_data['ganador'] = None
  
