@@ -1,12 +1,12 @@
 import modulos.carta as carta
 
-def inicializar_jugador():
-    jugador_actual = {}
-    jugador_actual['puntaje_actual'] = 0
-    jugador_actual['puntaje_total'] = 0
-    jugador_actual['nombre'] = 'Player'
+def inicializar_enemigo():
+    enemigo = {}
+    enemigo['puntaje_actual'] = 0
+    enemigo['puntaje_total'] = 0
+    enemigo['nombre'] = 'Enemigo'
     
-    return jugador_actual
+    return enemigo
 
 
 
@@ -30,8 +30,8 @@ def get_nombre(jugador_actual: dict):
     return jugador_actual.get('nombre')
 
 # Setters
-def sumar_puntaje_mano_ganada(jugador_actual: dict, nuevo_puntaje: int):
-    jugador_actual['puntaje_actual'] += nuevo_puntaje
+def sumar_puntaje_mano_ganada(enemigo: dict, nuevo_puntaje: int):
+    enemigo['puntaje_actual'] += nuevo_puntaje
 
 def set_puntaje_total(jugador_actual: dict, nuevo_puntaje: int):
     jugador_actual['puntaje_total'] = nuevo_puntaje

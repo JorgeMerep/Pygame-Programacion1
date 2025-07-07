@@ -2,6 +2,8 @@ import pygame
 import sys
 import modulos.variables as var
 import modulos.forms.form_manager as form_manager
+import modulos.jugador as jugador_humano
+import modulos.enemigo as enemigo_actual
 
 def jugar_dragon_ball():
 
@@ -16,8 +18,8 @@ def jugar_dragon_ball():
     datos_juego = {
         "puntaje": 0,
         "cantidad_vidas": var.CANTIDAD_VIDAS,
-        "jugador": 'JUGADOR',
-        "enemigo": 'ENEMIGO',
+        "jugador": jugador_humano.inicializar_jugador(),
+        "enemigo": enemigo_actual.inicializar_enemigo(),
         'volumen_musica' : 100,
         'tiempo_finalizado': None,
     }

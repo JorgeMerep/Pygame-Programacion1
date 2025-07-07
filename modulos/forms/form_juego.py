@@ -67,6 +67,15 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         font_path=var.RUTA_FUENTE_ALAGARD, 
         font_size=20)
     
+    form["label_puntaje_partida"] = Label(
+    x=150,
+    y=50,
+    text=f"PUNTAJE: {form['jugador'].get('puntaje_actual', 0)} - {form['enemigo'].get('puntaje_actual', 0)}",
+    screen=form.get('pantalla'),
+    font_path=var.RUTA_FUENTE_ALAGARD,
+    font_size=40,
+    )
+    
     form["boton_jugar"] = ButtonImageSound(
         x=1200, 
         y=385,
@@ -124,6 +133,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         form.get("label_hp_enemigo"),
         form.get("label_atk_enemigo"),
         form.get("label_def_enemigo"),
+        form.get("label_puntaje_partida"),
         form.get("boton_jugar"),
         form.get("boton_heal"),
         form.get("boton_shield"),   
@@ -162,6 +172,8 @@ def actualizar(dict_form_datos: dict):
     dict_form_datos['label_def_enemigo'].update_text(f'DEF: {dict_form_datos.get("nivel").get("def_total_enemigo")}', (255, 0, 0)) 
     
     dict_form_datos['label_atk_enemigo'].update_text(f'ATK: {dict_form_datos.get("nivel").get("atk_total_enemigo")}', (255, 0, 0))
+
+    dict_form_datos['label_puntaje_partida'].update_text(f'PUNTAJE: {dict_form_datos.get('jugador').get('puntaje_actual', 0)} - {dict_form_datos.get('enemigo').get('puntaje_actual', 0)}', (255, 0, 0))
 
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):

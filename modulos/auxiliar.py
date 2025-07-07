@@ -55,7 +55,7 @@ def generar_bd(root_path_cards: str):
                 name_without_ext = file.split('/')[-1].split('.png')[0]
                 parts = name_without_ext.split('_')
 
-                # Validación estricta: buscamos exactamente este patrón
+                # Validación estricta: solo exactamente este patrón
                 if len(parts) == 8 and parts[1] == 'HP' and parts[3] == 'ATK' and parts[5] == 'DEF':
                     vida = int(parts[2])
                     ataque = int(parts[4])

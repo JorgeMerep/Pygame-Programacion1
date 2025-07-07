@@ -4,6 +4,7 @@ import modulos.auxiliar as aux
 import random
 import modulos.carta as carta
 import modulos.jugador as jugador_humano
+import modulos.enemigo as enemigo_actual
 
 def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surface, numero_nivel: int):
     
@@ -53,9 +54,7 @@ def cargar_configs_nivel(nivel_data: dict):
     if not nivel_data.get('juego_finalizado') and not nivel_data.get('data_cargada'):
         print('=============== CARGANDO CONFIGS INICIALES ===============')
         configs_globales = aux.cargar_configs(var.RUTA_CONFIGS_JSON)
-        print(f'PRIMER PRINT {configs_globales}')
         nivel_data['configs'] = configs_globales.get(f'nivel_{nivel_data.get("numero_nivel")}')
-        print(f'SEGUNDO PRINT {nivel_data.get("configs")}')
         nivel_data['rutas_mazos'] = nivel_data.get('configs').get('mazos')
 
 def cargar_bd_cartas(nivel_data: dict):
@@ -71,7 +70,7 @@ def cargar_bd_cartas(nivel_data: dict):
             if nombre_mazo in cartas_del_mazo:
                 nivel_data['cartas_mazo_juego'][nombre_mazo] = cartas_del_mazo[nombre_mazo]
             else:
-                print(f"⚠️ Atención: No se encontró el mazo '{nombre_mazo}' en la ruta {ruta}")
+                print(f"Atención: No se encontró el mazo '{nombre_mazo}' en la ruta {ruta}")
 
         print(nivel_data.get("cartas_mazo_juego"))
         print("BASE DE DATOS DE CARTAS CARGA COMPLETA")
@@ -170,13 +169,22 @@ def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: di
         nivel_data["def_total_enemigo"] -= defensa_perdida
         hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_enemigo)
         nivel_data["hp_total_enemigo"] -= hp_perdida
-        nivel_data["atk_total_enemigo"] -= ataque_mas_bonus_enemigo   
+        nivel_data["atk_total_enemigo"] -= ataque_mas_bonus_enemigo
+        
     else:
         defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_jugador)
         nivel_data["def_total_jugador"] -= defensa_perdida
         hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_jugador)
         nivel_data["hp_total_jugador"] -= hp_perdida
         nivel_data["atk_total_jugador"] -= ataque_mas_bonus_jugador   
+
+    evaluar_ganador_mano(ataque_mas_bonus_jugador, ataque_mas_bonus_enemigo, nivel_data)
+
+def evaluar_ganador_mano(ataque_mas_bonus_jugador: int, ataque_mas_bonus_enemigo: int, nivel_data: dict):
+    if ataque_mas_bonus_jugador > ataque_mas_bonus_enemigo:
+        jugador_humano.sumar_puntaje_mano_ganada(nivel_data.get("jugador"), 1)
+    else:
+        enemigo_actual.sumar_puntaje_mano_ganada(nivel_data.get("enemigo"), 1)
 
 
 def tiempo_esta_terminado(nivel_data: dict):
@@ -195,7 +203,7 @@ def juego_terminado(nivel_data: dict):
 
 def reiniciar_nivel(nivel_cartas: dict, jugador: dict, pantalla: pygame.Surface, nro_nivel: int):
     print('=============== REINICIANDO NIVEL ===============')
-    jugador_humano.set_puntaje_actual(jugador, 0)
+    jugador_humano.sumar_puntaje_mano_ganada(jugador, 0)
     nivel_cartas = inicializar_nivel_cartas(jugador, pantalla, nro_nivel)
     return nivel_cartas
 
