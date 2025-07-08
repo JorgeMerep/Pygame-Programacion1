@@ -29,6 +29,7 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     nivel_data["atk_total_enemigo"] = 0
     nivel_data["def_total_enemigo"] = 0
 
+    nivel_data['buff_shield_activo'] = False
 
     nivel_data['pantalla'] = pantalla
 
@@ -172,17 +173,29 @@ def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: di
 
     if ataque_mas_bonus_jugador > ataque_mas_bonus_enemigo:
         defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_enemigo)
-        nivel_data["def_total_enemigo"] -= defensa_perdida
         hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_enemigo)
+        nivel_data["def_total_enemigo"] -= defensa_perdida
         nivel_data["hp_total_enemigo"] -= hp_perdida
         nivel_data["atk_total_enemigo"] -= ataque_mas_bonus_enemigo
-        
+
     else:
-        defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_jugador)
-        nivel_data["def_total_jugador"] -= defensa_perdida
-        hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_jugador)
-        nivel_data["hp_total_jugador"] -= hp_perdida
-        nivel_data["atk_total_jugador"] -= ataque_mas_bonus_jugador   
+        if nivel_data.get("buff_shield_activo", False):
+            # SHIELD ACTIVO: daño rebota al enemigo
+            defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_enemigo)
+            hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_enemigo)
+            nivel_data["def_total_enemigo"] -= defensa_perdida
+            nivel_data["hp_total_enemigo"] -= hp_perdida
+            nivel_data["atk_total_enemigo"] -= ataque_mas_bonus_enemigo
+        else:
+            # Sin shield: jugador recibe daño normal
+            defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_jugador)
+            hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_jugador)
+            nivel_data["def_total_jugador"] -= defensa_perdida
+            nivel_data["hp_total_jugador"] -= hp_perdida
+            nivel_data["atk_total_jugador"] -= ataque_mas_bonus_jugador
+
+    # El buff_shield solo se usa una vez
+    nivel_data['buff_shield_activo'] = False
 
     evaluar_ganador_mano(ataque_mas_bonus_jugador, ataque_mas_bonus_enemigo, nivel_data)
 
@@ -193,16 +206,10 @@ def evaluar_ganador_mano(ataque_mas_bonus_jugador: int, ataque_mas_bonus_enemigo
         enemigo_actual.sumar_puntaje_mano_ganada(nivel_data.get("enemigo"), 1)
 
 def activar_buff_shield(nivel_data: dict):
-    
-    pass
+    nivel_data['buff_shield_activo'] = True
 
 def activar_buff_heal(nivel_data: dict):
-    print(nivel_data.get("hp_total_inicial_jugador"))
-    nivel_data["hp_total_jugador"] = nivel_data.get("hp_total_inicial_jugador")
-    print(nivel_data.get("hp_total_jugador"))
-    print(nivel_data.get("hp_total_inicial_jugador"))
-
-    
+    nivel_data["hp_total_jugador"] = nivel_data.get("hp_total_inicial_jugador") 
 
 def tiempo_esta_terminado(nivel_data: dict):
     return nivel_data.get('timer_partida') <= 0

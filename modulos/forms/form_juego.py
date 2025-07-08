@@ -121,8 +121,8 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         image_path= var.RUTA_IMAGEBUTTON_SHIELD,
         sound_path= var.SONIDO_SHIELD,
         font_size= "", 
-        on_click= nivel_cartas.activar_buff_shield(form.get("nivel")), 
-        on_click_param= "")
+        on_click= click_activar_buff_shield, 
+        on_click_param= form.get("nivel"))
     
     
 
@@ -202,4 +202,6 @@ def activar_musica(dict_form_datos: dict, form_manager: dict):
 def click_activar_buff_heal(nivel_data: dict):
     nivel_cartas.activar_buff_heal(nivel_data)
 
+def click_activar_buff_shield(nivel_data: dict):
+    nivel_cartas.activar_buff_shield(nivel_data)
 
