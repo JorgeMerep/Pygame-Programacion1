@@ -19,6 +19,9 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     nivel_data['cartas_mazo_juego_final_vistas_enemigo'] = [] #Cartas frente del enemigo
     nivel_data['rutas_mazos'] = ''
 
+    nivel_data["hp_total_inicial_jugador"] = 0
+
+
     nivel_data["hp_total_jugador"] = 0
     nivel_data["atk_total_jugador"] = 0
     nivel_data["def_total_jugador"] = 0
@@ -35,7 +38,7 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     
     nivel_data['juego_finalizado'] = False
     nivel_data['puntaje_guardado'] = False
-    
+
     nivel_data['timer_partida'] = var.TIMER
     nivel_data['ganador'] = None
  
@@ -96,7 +99,8 @@ def generar_mazo_jugador(nivel_data: dict):
     random.shuffle(nivel_data['cartas_mazo_juego_final_jugador'])  # Mezclar el mazo final
 
     # Inicializar los totales en 0
-    nivel_data["hp_total_jugador"] = 0 
+    nivel_data["hp_total_jugador"] = 0
+    nivel_data["hp_total_inicial_jugador"] = 0 
     nivel_data["atk_total_jugador"] = 0
     nivel_data["def_total_jugador"] = 0
     nivel_data["hp_total_enemigo"] = 0
@@ -106,6 +110,7 @@ def generar_mazo_jugador(nivel_data: dict):
     # Sumar los stats del mazo del jugador
     for carta_final in nivel_data["cartas_mazo_juego_final_jugador"]:
         nivel_data["hp_total_jugador"] += carta_final.get("hp", 0)
+        nivel_data["hp_total_inicial_jugador"] += carta_final.get("hp", 0)
         nivel_data["atk_total_jugador"] += carta_final.get("atk", 0)
         nivel_data["def_total_jugador"] += carta_final.get("def", 0)
     
@@ -187,6 +192,17 @@ def evaluar_ganador_mano(ataque_mas_bonus_jugador: int, ataque_mas_bonus_enemigo
     else:
         enemigo_actual.sumar_puntaje_mano_ganada(nivel_data.get("enemigo"), 1)
 
+def activar_buff_shield(nivel_data: dict):
+    
+    pass
+
+def activar_buff_heal(nivel_data: dict):
+    print(nivel_data.get("hp_total_inicial_jugador"))
+    nivel_data["hp_total_jugador"] = nivel_data.get("hp_total_inicial_jugador")
+    print(nivel_data.get("hp_total_jugador"))
+    print(nivel_data.get("hp_total_inicial_jugador"))
+
+    
 
 def tiempo_esta_terminado(nivel_data: dict):
     return nivel_data.get('timer_partida') <= 0

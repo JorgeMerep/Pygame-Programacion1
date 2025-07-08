@@ -108,8 +108,8 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         image_path= var.RUTA_IMAGEBUTTON_HEAL,
         sound_path= var.SONIDO_HEAL,
         font_size= "", 
-        on_click= "", 
-        on_click_param= "")
+        on_click= click_activar_buff_heal, 
+        on_click_param= form.get("nivel"))
     
     form["boton_shield"] = ButtonImageSound(
         x=1200, 
@@ -121,7 +121,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         image_path= var.RUTA_IMAGEBUTTON_SHIELD,
         sound_path= var.SONIDO_SHIELD,
         font_size= "", 
-        on_click= "", 
+        on_click= nivel_cartas.activar_buff_shield(form.get("nivel")), 
         on_click_param= "")
     
     
@@ -157,7 +157,6 @@ def dibujar(dict_form_datos: dict):
     form_base.dibujar(dict_form_datos)
 
     nivel_cartas.dibujar_cartas(nivel_data=dict_form_datos.get("nivel"))
-
 
 def click_jugar_partida(parametro: dict):
     if not nivel_cartas.juego_terminado(parametro):
@@ -199,3 +198,8 @@ def actualizar_timer(dict_form_data: dict):
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
     form_base.activar_musica(dict_form_datos, form_manager)
+
+def click_activar_buff_heal(nivel_data: dict):
+    nivel_cartas.activar_buff_heal(nivel_data)
+
+
