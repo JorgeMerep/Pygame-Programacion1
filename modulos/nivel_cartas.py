@@ -188,6 +188,7 @@ def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: di
             nivel_data["def_total_enemigo"] -= defensa_perdida
             nivel_data["hp_total_enemigo"] -= hp_perdida
             nivel_data["atk_total_enemigo"] -= ataque_mas_bonus_enemigo
+
         else:
             # Sin shield: jugador recibe daño normal
             defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_jugador)
@@ -196,17 +197,26 @@ def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: di
             nivel_data["hp_total_jugador"] -= hp_perdida
             nivel_data["atk_total_jugador"] -= ataque_mas_bonus_jugador
 
+    
+    evaluar_ganador_mano(ataque_mas_bonus_jugador, ataque_mas_bonus_enemigo, nivel_data)
+
     # Los buff solo se usan una vez
     nivel_data['buff_shield_activo'] = False
     nivel_data["buff_heal_activo"] = False
 
-    evaluar_ganador_mano(ataque_mas_bonus_jugador, ataque_mas_bonus_enemigo, nivel_data)
 
 def evaluar_ganador_mano(ataque_mas_bonus_jugador: int, ataque_mas_bonus_enemigo: int, nivel_data: dict):
-    if ataque_mas_bonus_jugador > ataque_mas_bonus_enemigo:
-        jugador_humano.sumar_puntaje_mano_ganada(nivel_data.get("jugador"), 1)
+    if nivel_data["buff_shield_activo"] == True:
+        jugador_humano.sumar_puntaje_mano_ganada(nivel_data.get("jugador"), 1)   
     else:
-        enemigo_actual.sumar_puntaje_mano_ganada(nivel_data.get("enemigo"), 1)
+        if ataque_mas_bonus_jugador > ataque_mas_bonus_enemigo:
+            jugador_humano.sumar_puntaje_mano_ganada(nivel_data.get("jugador"), 1)
+        else:
+            enemigo_actual.sumar_puntaje_mano_ganada(nivel_data.get("enemigo"), 1)
+
+def evaluar_hp_jugadores(nivel_data: dict):
+    if nivel_data.get("hp_total_jugador") == 0 or nivel_data.get("hp_total_enemigo") == 0:
+       return True
 
 def activar_buff_shield(nivel_data: dict):
     nivel_data['buff_shield_activo'] = True
@@ -220,13 +230,15 @@ def tiempo_esta_terminado(nivel_data: dict):
 def mazo_esta_vacio(nivel_data: dict):
     return len(nivel_data.get('cartas_mazo_juego_final_jugador')) == 0 and len(nivel_data.get("cartas_mazo_juego_final_enemigo")) == 0
 
-def check_juego_terminado(nivel_data: dict):
-    if mazo_esta_vacio(nivel_data) or\
-        tiempo_esta_terminado(nivel_data):
-            nivel_data['juego_finalizado'] = True
-
 def juego_terminado(nivel_data: dict):
     return nivel_data.get('juego_finalizado')
+
+def check_juego_terminado(nivel_data: dict):
+    if mazo_esta_vacio(nivel_data) or\
+        tiempo_esta_terminado(nivel_data) or\
+            evaluar_hp_jugadores(nivel_data):
+                nivel_data['juego_finalizado'] = True
+
 
 def reiniciar_nivel(nivel_cartas: dict, jugador: dict, pantalla: pygame.Surface, nro_nivel: int):
     print('=============== REINICIANDO NIVEL ===============')
@@ -254,13 +266,5 @@ def actualizar_cartas(nivel_data: dict):
         nivel_data['puntaje_guardado'] = True
         print(f'Puntaje acumulado: {jugador_humano.get_puntaje_total(nivel_data.get("jugador"))}')
 
-        pass
         
         
-       
-        #jugador_humano.actualizar_puntaje_total(nivel_data.get("jugador"))
-        # nombre_elegido = rd.choice(var.nombres)
-        # jugador_humano.set_nombre(nivel_data.get("jugador"), nombre_elegido)
-        # aux.guardar_ranking(nivel_data.get('jugador'))
-        #nivel_data['puntaje_guardado'] = True
-        #print(f'Puntaje acumulado: {jugador_humano.get_puntaje_total(nivel_data.get("jugador"))}')
