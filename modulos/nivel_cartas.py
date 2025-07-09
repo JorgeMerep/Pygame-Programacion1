@@ -30,6 +30,8 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     nivel_data["def_total_enemigo"] = 0
 
     nivel_data['buff_shield_activo'] = False
+    nivel_data['buff_heal_activo'] = False
+
 
     nivel_data['pantalla'] = pantalla
 
@@ -194,8 +196,9 @@ def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: di
             nivel_data["hp_total_jugador"] -= hp_perdida
             nivel_data["atk_total_jugador"] -= ataque_mas_bonus_jugador
 
-    # El buff_shield solo se usa una vez
+    # Los buff solo se usan una vez
     nivel_data['buff_shield_activo'] = False
+    nivel_data["buff_heal_activo"] = False
 
     evaluar_ganador_mano(ataque_mas_bonus_jugador, ataque_mas_bonus_enemigo, nivel_data)
 
@@ -246,7 +249,11 @@ def dibujar_cartas(nivel_data: dict):
 
 def actualizar_cartas(nivel_data: dict):
     check_juego_terminado(nivel_data)
-    if juego_terminado(nivel_data):
+    if juego_terminado(nivel_data) and not nivel_data.get('puntaje_guardado'):
+        jugador_humano.actualizar_puntaje_total(nivel_data.get("jugador"))
+        nivel_data['puntaje_guardado'] = True
+        print(f'Puntaje acumulado: {jugador_humano.get_puntaje_total(nivel_data.get("jugador"))}')
+
         pass
         
         

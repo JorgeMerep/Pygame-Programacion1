@@ -129,11 +129,9 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
    
     form['reloj'] = pygame.time.Clock()
     form['first_last_timer'] = pygame.time.get_ticks()
-    form['bonus_1_used'] = False
-    form['bonus_2_used'] = False
-    
-   
-    
+
+    form['bonus_heal_used'] = False
+    form['bonus_shield_used'] = False
     
     form['lista_objetos'] = [
         form.get("label_hp_jugador"),
@@ -189,12 +187,16 @@ def actualizar(dict_form_datos: dict):
     dict_form_datos['label_timer'].update_text(f'TIMER: {dict_form_datos.get("nivel").get("timer_partida")}', 
     (255, 0, 0))
 
-def actualizar_timer(dict_form_data: dict):
-    if dict_form_data.get('nivel').get('timer_partida') > 0:
+    if nivel_cartas.juego_terminado(dict_form_datos.get('nivel')):
+        form_base.activar_form('form_ingresar_datos_ranking')
+ 
+
+def actualizar_timer(dict_form_datos: dict):
+    if dict_form_datos.get('nivel').get('timer_partida') > 0:
         tiempo_actual = pygame.time.get_ticks()
-        if tiempo_actual - dict_form_data.get('first_last_timer') > 1000:
-            dict_form_data.get('nivel')['timer_partida'] -= 1
-            dict_form_data['first_last_timer'] = tiempo_actual
+        if tiempo_actual - dict_form_datos.get('first_last_timer') > 1000:
+            dict_form_datos.get('nivel')['timer_partida'] -= 1
+            dict_form_datos['first_last_timer'] = tiempo_actual
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
     form_base.activar_musica(dict_form_datos, form_manager)

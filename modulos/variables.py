@@ -20,6 +20,8 @@ RUTA_FONDO_MENU = "./assets_Dragon_Ball_TCG/img/forms/img_5.png"
 RUTA_FONDO_OPCIONES = "./assets_Dragon_Ball_TCG/img/forms/img_6.png"
 RUTA_FONDO_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_8.png"
 RUTA_FONDO_JUEGO = "./assets_Dragon_Ball_TCG/img/background_cards.png"
+RUTA_FONDO_INGRESAR_DATOS_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_3.jpg"
+
 
 # ======= COLORES ===========
 COLOR_NARANJA = (255, 165, 0)

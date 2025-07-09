@@ -86,3 +86,9 @@ def achicar_imagen_carta(path_imagen: str, porcentaje: int):
     ancho = int(imagen_raw.get_width() * float(f'0.{porcentaje}'))
     imagen_final = pygame.transform.scale(imagen_raw, (ancho, alto))
     return imagen_final
+
+def guardar_ranking(jugador_dict: dict):
+    with open(var.RUTA_RANKING_CSV, 'a', encoding='utf-8') as file:
+        data = f'{jugador_dict.get("nombre")},{jugador_dict.get("puntaje_actual")}\n'
+        file.write(data)
+        print(f'Datos guardados con exito: -> {data}')
