@@ -14,7 +14,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
 
     form["nivel"] = nivel_cartas.inicializar_nivel_cartas(form.get("jugador"), form.get("enemigo"), form.get("pantalla"),form.get("numero_nivel"))
 
-    nivel_cartas.inicializar_data_nivel(form["nivel"]) #Carga la data del nivel y genera los mazos
+    #nivel_cartas.inicializar_data_nivel(form["nivel"]) #Carga la data del nivel y genera los mazos
 
     form["label_hp_jugador"] = Label(
     x=140,
