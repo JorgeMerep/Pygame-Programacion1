@@ -26,6 +26,8 @@ RUTA_FONDO_INGRESAR_DATOS_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_3.jp
 # ======= COLORES ===========
 COLOR_NARANJA = (255, 165, 0)
 COLOR_ROJO = (255, 0, 0)
+COLOR_NEGRO = (0, 0, 0)
+
 
 # ======= MUSICA ===========
 RUTA_MUSICA_MENU = "./assets_Dragon_Ball_TCG/audio/music/Chala_Head_Chala.ogg"

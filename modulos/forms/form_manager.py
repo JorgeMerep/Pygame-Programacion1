@@ -79,7 +79,7 @@ def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
                 "activo":True,
                 "coords":(0,0), 
                 "numero_nivel":1, 
-                "ruta_musica":var.RUTA_MUSICA_JUEGO,
+                "ruta_musica":var.RUTA_MUSICA_RANKING,
                 "ruta_fondo": var.RUTA_FONDO_INGRESAR_DATOS_RANKING,
                 "dimension_pantalla": var.DIMENSION_PANTALLA
             },jugador=form.get('jugador')
