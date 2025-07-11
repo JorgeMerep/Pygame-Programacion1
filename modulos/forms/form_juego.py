@@ -1,5 +1,6 @@
 import pygame
 import modulos.forms.form_base as form_base
+import modulos.forms.form_ingresar_datos_ranking as form_ingresar_datos
 import modulos.variables as var
 import modulos.nivel_cartas as nivel_cartas
 from utn_fra.pygame_widgets import (
@@ -194,9 +195,9 @@ def actualizar(dict_form_datos: dict):
     (255, 0, 0))
 
     if nivel_cartas.juego_terminado(dict_form_datos.get('nivel')):
+        form_ingresar_datos.limpiar_text_box(form_base.forms_dict.get("form_ingresar_datos_ranking"))
         form_base.activar_form('form_ingresar_datos_ranking')
  
-
 def actualizar_timer(dict_form_datos: dict):
     if dict_form_datos.get('nivel').get('timer_partida') > 0:
         tiempo_actual = pygame.time.get_ticks()

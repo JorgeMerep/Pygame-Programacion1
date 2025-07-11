@@ -95,7 +95,7 @@ def click_empezar(parametro: str):
 def cambiar_formulario_on_click(parametro: str):
     form_juego = form_base.forms_dict[parametro]
     if parametro == "form_juego":
-        nivel_cartas.inicializar_data_nivel(form_juego.get("nivel"))
+        nivel_cartas.reiniciar_nivel(form_juego.get("nivel"))
        
     form_base.activar_form(parametro)
 

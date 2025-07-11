@@ -20,15 +20,6 @@ def iniciar_form_ingresar_datos_ranking(dict_form_datos: dict, jugador: dict):
         font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
         font_size=75
     )
-    form['titulo_2'] = Label(
-        x=var.DIMENSION_PANTALLA[0] // 2, 
-        y=var.DIMENSION_PANTALLA[1] // 2 - 200,
-        text='Ganaste!',
-        screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
-        font_size=50, 
-        color=var.COLOR_NEGRO
-    )
     form['subtitulo'] = Label(
         x=var.DIMENSION_PANTALLA[0] // 2, 
         y=var.DIMENSION_PANTALLA[1] // 2 - 90,
@@ -69,7 +60,7 @@ def iniciar_form_ingresar_datos_ranking(dict_form_datos: dict, jugador: dict):
     )
     
     form['lista_objetos'] = [
-        form.get('titulo'),form.get('titulo_2'),form.get('subtitulo'),form.get('subtitulo_puntaje'),
+        form.get('titulo'),form.get('subtitulo'),form.get('subtitulo_puntaje'),
         form.get('boton_confirmar_nombre')
     ]
     
@@ -105,9 +96,14 @@ def dibujar(dict_form_datos: dict):
 
 def actualizar(dict_form_datos: dict, lista_eventos: list):
     dict_form_datos['puntaje'] = jugador_mod.get_puntaje_total(dict_form_datos.get('jugador'))
-    dict_form_datos.get('lista_objetos')[3].update_text(f'PUNTAJE: {dict_form_datos.get("puntaje")}', var.COLOR_ROJO)
+    dict_form_datos.get('lista_objetos')[2].update_text(f'PUNTAJE: {dict_form_datos.get("puntaje")}', var.COLOR_ROJO)
     dict_form_datos.get('text_box').update(lista_eventos)
     form_base.actualizar(dict_form_datos)
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
     form_base.activar_musica(dict_form_datos, form_manager)
+
+def limpiar_text_box(dict_form_datos: dict):
+    dict_form_datos.get('text_box').writing = ""
+   
+   

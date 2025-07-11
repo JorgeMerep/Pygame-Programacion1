@@ -37,6 +37,7 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
 
     nivel_data['jugador'] = jugador
     nivel_data['enemigo'] = enemigo
+    nivel_data["evaluar_ganador"] = ""
 
     
     nivel_data['juego_finalizado'] = False
@@ -50,8 +51,7 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     
     return nivel_data
 
-def inicializar_data_nivel(nivel_data: dict):
-    print('ESTOY GASTANDO RECURSOS Y CARGANDO TODA LA DATA DEL LEVEL')
+def inicializar_data_nivel(nivel_data: dict): 
     cargar_configs_nivel(nivel_data)
     cargar_bd_cartas(nivel_data)
     generar_mazo_jugador(nivel_data)
@@ -77,7 +77,7 @@ def cargar_bd_cartas(nivel_data: dict):
             if nombre_mazo in cartas_del_mazo:
                 nivel_data['cartas_mazo_juego'][nombre_mazo] = cartas_del_mazo[nombre_mazo]
             else:
-                print(f"Atención: No se encontró el mazo '{nombre_mazo}' en la ruta {ruta}")
+                print(f"No se encontró el mazo '{nombre_mazo}' en la ruta {ruta}")
 
         print(nivel_data.get("cartas_mazo_juego"))
         print("BASE DE DATOS DE CARTAS CARGA COMPLETA")
@@ -94,9 +94,10 @@ def generar_mazo_jugador(nivel_data: dict):
     coordenada_inicial = nivel_data.get('configs').get('coordenadas').get('mazo_1_jugador')
     
     for mazo, cantidad in cantidades.items():
-        for indice_cartas in range (cantidad):
-            carta_base = bd_cartas.get(mazo).pop() #Levantamos la carta base de la DB y usamos la ultima y la quitamos de la DB
-            carta_final = carta.inicializar_carta(carta_base, coordenada_inicial)
+        mazo_elegido = random.sample(bd_cartas.get(mazo), cantidad)
+        
+        for cartas in (mazo_elegido):
+            carta_final = carta.inicializar_carta(cartas, coordenada_inicial)
             nivel_data['cartas_mazo_juego_final_jugador'].append(carta_final)
 
     random.shuffle(nivel_data['cartas_mazo_juego_final_jugador'])  # Mezclar el mazo final
@@ -130,14 +131,15 @@ def generar_mazo_enemigo(nivel_data: dict):
     coordenada_inicial = nivel_data.get('configs').get('coordenadas').get('mazo_1_enemigo')
     
     for mazo, cantidad in cantidades.items():
-        for indice_cartas in range (cantidad):
-            carta_base = bd_cartas.get(mazo).pop() #Levantamos la carta base de la DB y usamos la ultima y la quitamos de la DB
-            carta_final = carta.inicializar_carta(carta_base, coordenada_inicial)
+        mazo_elegido = random.sample(bd_cartas.get(mazo), cantidad)
+        
+        for cartas in (mazo_elegido):
+            carta_final = carta.inicializar_carta(cartas, coordenada_inicial)
             nivel_data['cartas_mazo_juego_final_enemigo'].append(carta_final)
 
     random.shuffle(nivel_data['cartas_mazo_juego_final_enemigo'])  # Mezclar el mazo final
 
-    # Sumar los stats del mazo del jugador
+    # Sumar los stats del mazo del enemigo
     for carta_final in nivel_data["cartas_mazo_juego_final_enemigo"]:
         nivel_data["hp_total_enemigo"] += carta_final.get("hp", 0)
         nivel_data["atk_total_enemigo"] += carta_final.get("atk", 0)
@@ -217,7 +219,7 @@ def evaluar_ganador_mano(ataque_mas_bonus_jugador: int, ataque_mas_bonus_enemigo
 def evaluar_hp_jugadores(nivel_data: dict):
     if nivel_data.get("hp_total_jugador") == 0 or nivel_data.get("hp_total_enemigo") == 0:
        return True
-
+    
 def activar_buff_shield(nivel_data: dict):
     nivel_data['buff_shield_activo'] = True
 
@@ -240,11 +242,23 @@ def check_juego_terminado(nivel_data: dict):
                 nivel_data['juego_finalizado'] = True
 
 
-def reiniciar_nivel(nivel_cartas: dict, jugador: dict, pantalla: pygame.Surface, nro_nivel: int):
+def reiniciar_nivel(nivel_data: dict):
     print('=============== REINICIANDO NIVEL ===============')
-    jugador_humano.sumar_puntaje_mano_ganada(jugador, 0)
-    nivel_cartas = inicializar_nivel_cartas(jugador, pantalla, nro_nivel)
-    return nivel_cartas
+    nivel_data['buff_shield_activo'] = False
+    nivel_data['buff_heal_activo'] = False
+    nivel_data['juego_finalizado'] = False
+    nivel_data['puntaje_guardado'] = False
+    nivel_data['data_cargada'] = False
+    nivel_data['puntaje_nivel'] = 0
+    nivel_data['timer_partida'] = var.TIMER
+    nivel_data.get("jugador")["puntaje_actual"] = 0
+    nivel_data.get("jugador")["puntaje_total"] = 0
+    nivel_data.get("enemigo")["puntaje_actual"] = 0
+    nivel_data.get("enemigo")["puntaje_total"] = 0
+
+    inicializar_data_nivel(nivel_data)
+
+    return 
 
 def dibujar_cartas(nivel_data: dict):
     if nivel_data.get('cartas_mazo_juego_final_jugador'):
