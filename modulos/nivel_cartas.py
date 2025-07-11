@@ -21,7 +21,6 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
 
     nivel_data["hp_total_inicial_jugador"] = 0
 
-
     nivel_data["hp_total_jugador"] = 0
     nivel_data["atk_total_jugador"] = 0
     nivel_data["def_total_jugador"] = 0
@@ -168,36 +167,36 @@ def jugar_partida(nivel_data: dict):
         carta_vista_enemigo = nivel_data.get('cartas_mazo_juego_final_enemigo').pop()
         nivel_data.get('cartas_mazo_juego_final_vistas_enemigo').append(carta_vista_enemigo)
 
-    # CHEQUEAR SI AMBOS MAZOS ESTAN VACIOS PREVIO A HACER LA EVALUACION DE STATS
+    # Chequear carta jugador y enemigo para evaluar la carta ganadora. Evalua buffs
     evaluar_stats_carta_vista(carta_vista_jugador, carta_vista_enemigo, nivel_data)
 
 def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: dict, nivel_data: dict):
     ataque_mas_bonus_jugador = carta.obtener_ataque_mas_bonus(carta_vista_jugador)
-    ataque_mas_bonus_enemigo = carta.obtener_ataque_mas_bonus(carta_vista_enemigo)
+    ataque_mas_bonus_enemigo = carta.obtener_ataque_mas_bonus(carta_vista_enemigo) 
 
     if ataque_mas_bonus_jugador > ataque_mas_bonus_enemigo:
         defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_enemigo)
         hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_enemigo)
-        nivel_data["def_total_enemigo"] -= defensa_perdida
-        nivel_data["hp_total_enemigo"] -= hp_perdida
-        nivel_data["atk_total_enemigo"] -= ataque_mas_bonus_enemigo
+        nivel_data["def_total_enemigo"] = max(0, nivel_data["def_total_enemigo"] - defensa_perdida)
+        nivel_data["hp_total_enemigo"] = max(0, nivel_data["hp_total_enemigo"] - hp_perdida)
+        nivel_data["atk_total_enemigo"] = max(0, nivel_data["atk_total_enemigo"] - ataque_mas_bonus_enemigo)
 
     else:
         if nivel_data.get("buff_shield_activo", False):
             # SHIELD ACTIVO: daño rebota al enemigo
             defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_enemigo)
             hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_enemigo)
-            nivel_data["def_total_enemigo"] -= defensa_perdida
-            nivel_data["hp_total_enemigo"] -= hp_perdida
-            nivel_data["atk_total_enemigo"] -= ataque_mas_bonus_enemigo
+            nivel_data["def_total_enemigo"] = max(0, nivel_data["def_total_enemigo"] - defensa_perdida)
+            nivel_data["hp_total_enemigo"] = max(0, nivel_data["hp_total_enemigo"] - hp_perdida)
+            nivel_data["atk_total_enemigo"] = max(0, nivel_data["atk_total_enemigo"] - ataque_mas_bonus_enemigo)
 
         else:
             # Sin shield: jugador recibe daño normal
             defensa_perdida = carta.obtener_def_mas_bonus(carta_vista_jugador)
             hp_perdida = carta.obtener_hp_mas_bonus(carta_vista_jugador)
-            nivel_data["def_total_jugador"] -= defensa_perdida
-            nivel_data["hp_total_jugador"] -= hp_perdida
-            nivel_data["atk_total_jugador"] -= ataque_mas_bonus_jugador
+            nivel_data["def_total_jugador"] = max(0, nivel_data["def_total_jugador"] - defensa_perdida)
+            nivel_data["hp_total_jugador"] = max(0, nivel_data["hp_total_jugador"] - hp_perdida)
+            nivel_data["atk_total_jugador"] = max(0, nivel_data["atk_total_jugador"] - ataque_mas_bonus_jugador)
 
     
     evaluar_ganador_mano(ataque_mas_bonus_jugador, ataque_mas_bonus_enemigo, nivel_data)
