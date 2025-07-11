@@ -5,6 +5,7 @@ import modulos.forms.form_opciones as form_opciones
 import modulos.forms.form_ranking as form_ranking
 import modulos.forms.form_juego as form_juego
 import modulos.forms.form_ingresar_datos_ranking as form_ingresar_datos
+import modulos.forms.form_pausa as form_pausa
 
 
 def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
@@ -83,7 +84,20 @@ def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
                 "ruta_fondo": var.RUTA_FONDO_INGRESAR_DATOS_RANKING,
                 "dimension_pantalla": var.DIMENSION_PANTALLA
             },jugador=form.get('jugador')
-        )
+        ),
+          form_pausa.iniciar_form_pausa(
+            dict_form_datos={
+                "form_manager_ref" : form,
+                "nombre":'form_pausa', 
+                "pantalla":form.get('pantalla_principal'), 
+                "activo":True,
+                "coords":(0,0), 
+                "numero_nivel":1, 
+                "ruta_musica":var.RUTA_MUSICA_PAUSA,
+                "ruta_fondo": var.RUTA_FONDO_PAUSA,
+                "dimension_pantalla": var.DIMENSION_PANTALLA
+            }
+        ),
     ]
     
     return form
@@ -113,7 +127,7 @@ def actualizar_forms(form_manager: dict, lista_eventos: pygame.event.Event):
 
     # FORM JUEGO
     elif form_manager.get('lista_forms')[3].get('activo'):
-        form_juego.actualizar(form_manager.get('lista_forms')[3])
+        form_juego.actualizar(form_manager.get('lista_forms')[3], lista_eventos)
         form_juego.dibujar(form_manager.get('lista_forms')[3])
         form_juego.activar_musica(form_manager.get('lista_forms')[3], form_manager)
 
@@ -122,7 +136,12 @@ def actualizar_forms(form_manager: dict, lista_eventos: pygame.event.Event):
         form_ingresar_datos.actualizar(form_manager.get('lista_forms')[4], lista_eventos)
         form_ingresar_datos.dibujar(form_manager.get('lista_forms')[4])
         form_ingresar_datos.activar_musica(form_manager.get('lista_forms')[4], form_manager)
-
+        
+     # FORM PAUSA
+    elif form_manager.get('lista_forms')[5].get('activo'):
+        form_pausa.actualizar(form_manager.get('lista_forms')[5])
+        form_pausa.dibujar(form_manager.get('lista_forms')[5])
+        form_pausa.activar_musica(form_manager.get('lista_forms')[5], form_manager)
 
 
 def actualizar(form_manager: dict, lista_eventos: pygame.event.Event):

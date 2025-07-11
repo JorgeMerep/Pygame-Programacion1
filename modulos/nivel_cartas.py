@@ -58,15 +58,12 @@ def inicializar_data_nivel(nivel_data: dict):
 
 def cargar_configs_nivel(nivel_data: dict):
     if not nivel_data.get('juego_finalizado') and not nivel_data.get('data_cargada'):
-        print('=============== CARGANDO CONFIGS INICIALES ===============')
         configs_globales = aux.cargar_configs(var.RUTA_CONFIGS_JSON)
         nivel_data['configs'] = configs_globales.get(f'nivel_{nivel_data.get("numero_nivel")}')
         nivel_data['rutas_mazos'] = nivel_data.get('configs').get('mazos')
 
 def cargar_bd_cartas(nivel_data: dict):
     if not nivel_data.get('juego_finalizado'):
-        print('=============== GENERANDO BD CARTAS INICIALES ===============')
-
         nivel_data['cartas_mazo_juego'] = {}  # Inicializar como diccionario vacío
 
         for nombre_mazo, ruta in nivel_data.get('rutas_mazos').items():
@@ -75,16 +72,8 @@ def cargar_bd_cartas(nivel_data: dict):
             # Buscar el mazo por nombre y agregarlo al dict general
             if nombre_mazo in cartas_del_mazo:
                 nivel_data['cartas_mazo_juego'][nombre_mazo] = cartas_del_mazo[nombre_mazo]
-            else:
-                print(f"No se encontró el mazo '{nombre_mazo}' en la ruta {ruta}")
-
-        print(nivel_data.get("cartas_mazo_juego"))
-        print("BASE DE DATOS DE CARTAS CARGA COMPLETA")
-
 
 def generar_mazo_jugador(nivel_data: dict):
-    print('=============== GENERANDO MAZO FINAL JUGADOR ===============')
-
     bd_cartas = nivel_data.get('cartas_mazo_juego')  # Dict con mazos y sus cartas
     cantidades = nivel_data.get('configs').get('cantidades')  # Dict con cantidades por mazo
 
@@ -116,12 +105,9 @@ def generar_mazo_jugador(nivel_data: dict):
         nivel_data["hp_total_inicial_jugador"] += carta_final.get("hp", 0)
         nivel_data["atk_total_jugador"] += carta_final.get("atk", 0)
         nivel_data["def_total_jugador"] += carta_final.get("def", 0)
-    
 
 
 def generar_mazo_enemigo(nivel_data: dict):
-    print('=============== GENERANDO MAZO FINAL ENEMIGO===============')
-
     bd_cartas = nivel_data.get('cartas_mazo_juego')  # Dict con mazos y sus cartas
     cantidades = nivel_data.get('configs').get('cantidades')  # Dict con cantidades por mazo
 
@@ -143,7 +129,6 @@ def generar_mazo_enemigo(nivel_data: dict):
         nivel_data["hp_total_enemigo"] += carta_final.get("hp", 0)
         nivel_data["atk_total_enemigo"] += carta_final.get("atk", 0)
         nivel_data["def_total_enemigo"] += carta_final.get("def", 0)
-
 
 def jugar_partida(nivel_data: dict):
     
@@ -242,7 +227,6 @@ def check_juego_terminado(nivel_data: dict):
 
 
 def reiniciar_nivel(nivel_data: dict):
-    print('=============== REINICIANDO NIVEL ===============')
     nivel_data['buff_shield_activo'] = False
     nivel_data['buff_heal_activo'] = False
     nivel_data['juego_finalizado'] = False
@@ -256,8 +240,6 @@ def reiniciar_nivel(nivel_data: dict):
     nivel_data.get("enemigo")["puntaje_total"] = 0
 
     inicializar_data_nivel(nivel_data)
-
-    return 
 
 def dibujar_cartas(nivel_data: dict):
     if nivel_data.get('cartas_mazo_juego_final_jugador'):
@@ -277,7 +259,6 @@ def actualizar_cartas(nivel_data: dict):
     if juego_terminado(nivel_data) and not nivel_data.get('puntaje_guardado'):
         jugador_humano.actualizar_puntaje_total(nivel_data.get("jugador"))
         nivel_data['puntaje_guardado'] = True
-        print(f'Puntaje acumulado: {jugador_humano.get_puntaje_total(nivel_data.get("jugador"))}')
 
         
         

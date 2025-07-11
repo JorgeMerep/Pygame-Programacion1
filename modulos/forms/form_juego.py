@@ -4,7 +4,7 @@ import modulos.forms.form_ingresar_datos_ranking as form_ingresar_datos
 import modulos.variables as var
 import modulos.nivel_cartas as nivel_cartas
 from utn_fra.pygame_widgets import (
-Label,ButtonImageSound
+Label,ButtonImageSound, Button
 )
 
 def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
@@ -128,6 +128,18 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         on_click= click_activar_buff_shield, 
         on_click_param= form.get("nivel")
     )
+
+    form['boton_pausa'] = Button(
+        x=1000, 
+        y=190, 
+        text=var.BOTON_PAUSA, 
+        screen=form.get('pantalla'), 
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS,
+        color=var.COLOR_NARANJA, 
+        font_size=50,
+        on_click=cambiar_formulario_on_click, 
+        on_click_param='form_pausa'
+        )
     
    
     form['reloj'] = pygame.time.Clock()
@@ -147,7 +159,8 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
         form.get("label_timer"),
         form.get("boton_jugar"),
         form.get("boton_heal"),
-        form.get("boton_shield"),   
+        form.get("boton_shield"),
+        form.get("boton_pausa")   
     ]
     
     form_base.forms_dict[dict_form_datos.get('nombre')] = form
@@ -164,7 +177,7 @@ def click_jugar_partida(parametro: dict):
         nivel_cartas.jugar_partida(parametro)
 
        
-def actualizar(dict_form_datos: dict):
+def actualizar(dict_form_datos: dict, lista_eventos: list[pygame.event.Event]):
     form_base.actualizar(dict_form_datos)
 
     nivel_cartas.actualizar_cartas(nivel_data=dict_form_datos.get("nivel"))
@@ -197,6 +210,8 @@ def actualizar(dict_form_datos: dict):
     if nivel_cartas.juego_terminado(dict_form_datos.get('nivel')):
         form_ingresar_datos.limpiar_text_box(form_base.forms_dict.get("form_ingresar_datos_ranking"))
         form_base.activar_form('form_ingresar_datos_ranking')
+        
+    chequear_pausa(lista_eventos)
  
 def actualizar_timer(dict_form_datos: dict):
     if dict_form_datos.get('nivel').get('timer_partida') > 0:
@@ -214,3 +229,11 @@ def click_activar_buff_heal(nivel_data: dict):
 def click_activar_buff_shield(nivel_data: dict):
     nivel_cartas.activar_buff_shield(nivel_data)
 
+def chequear_pausa(lista_eventos: list[pygame.event.Event]):
+    for evento in lista_eventos:
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_ESCAPE:
+                form_base.activar_form('form_pausa')
+                
+def cambiar_formulario_on_click(parametro: str):   
+    form_base.activar_form(parametro)

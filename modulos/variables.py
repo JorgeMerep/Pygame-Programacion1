@@ -21,6 +21,7 @@ RUTA_FONDO_OPCIONES = "./assets_Dragon_Ball_TCG/img/forms/img_6.png"
 RUTA_FONDO_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_8.png"
 RUTA_FONDO_JUEGO = "./assets_Dragon_Ball_TCG/img/background_cards.png"
 RUTA_FONDO_INGRESAR_DATOS_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_3.jpg"
+RUTA_FONDO_PAUSA = "./assets_Dragon_Ball_TCG/img/forms/img_2.png"
 
 
 # ======= COLORES ===========
@@ -34,6 +35,8 @@ RUTA_MUSICA_MENU = "./assets_Dragon_Ball_TCG/audio/music/Chala_Head_Chala.ogg"
 RUTA_MUSICA_OPCIONES = "./assets_Dragon_Ball_TCG/audio/music/form_options.ogg"
 RUTA_MUSICA_RANKING = "./assets_Dragon_Ball_TCG/audio/music/form_ranking.ogg"
 RUTA_MUSICA_JUEGO = "./assets_Dragon_Ball_TCG/audio/music/battle_music.ogg"
+RUTA_MUSICA_PAUSA = "./assets_Dragon_Ball_TCG/audio/music/form_pausa.ogg"
+
 
 # ======= ARCHIVOS ===========
 RUTA_RANKING_CSV = './ranking.csv'
@@ -48,7 +51,9 @@ BOTON_JUGAR = "JUGAR"
 BOTON_OPCIONES = "OPCIONES"
 BOTON_RANKING = "RANKING"
 BOTON_SALIR = "SALIR"
+BOTON_PAUSA = "PAUSA"
 BOTON_VOLVER_MENU = "VOLVER AL MENU"
+BOTON_VOLVER_JUEGO = "VOLVER AL JUEGO"
 BOTON_MUSICA_ON = "MUSICA ON"
 BOTON_MUSICA_OFF = "MUSICA OFF"
 TEXTO_MENU_PRINCIPAL = "MENU PRINCIPAL"

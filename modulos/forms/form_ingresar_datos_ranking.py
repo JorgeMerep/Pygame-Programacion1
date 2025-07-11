@@ -9,7 +9,7 @@ from utn_fra.pygame_widgets import (
 def iniciar_form_ingresar_datos_ranking(dict_form_datos: dict, jugador: dict):
     form = form_base.crear_form_base(dict_form_datos)
     form['jugador'] = jugador
-    form['puntaje'] = jugador_mod.get_puntaje_total(form.get('jugador'))
+    form['puntaje'] = jugador_mod.obtener_puntaje_total(form.get('jugador'))
     form['confirmar_nombre'] = False
     
     form['titulo'] = Label(
@@ -69,7 +69,7 @@ def iniciar_form_ingresar_datos_ranking(dict_form_datos: dict, jugador: dict):
 
 def click_confirmar_nombre(dict_form_datos: dict):
     dict_form_datos['confirmar_nombre'] = True
-    jugador_mod.set_nombre(
+    jugador_mod.colocar_nombre(
         dict_form_datos.get('jugador'), 
         dict_form_datos.get('writing_text').text
     )
@@ -95,7 +95,7 @@ def dibujar(dict_form_datos: dict):
     dict_form_datos.get('writing_text').draw()
 
 def actualizar(dict_form_datos: dict, lista_eventos: list):
-    dict_form_datos['puntaje'] = jugador_mod.get_puntaje_total(dict_form_datos.get('jugador'))
+    dict_form_datos['puntaje'] = jugador_mod.obtener_puntaje_total(dict_form_datos.get('jugador'))
     dict_form_datos.get('lista_objetos')[2].update_text(f'PUNTAJE: {dict_form_datos.get("puntaje")}', var.COLOR_ROJO)
     dict_form_datos.get('text_box').update(lista_eventos)
     form_base.actualizar(dict_form_datos)

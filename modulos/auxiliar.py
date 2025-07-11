@@ -79,7 +79,6 @@ def generar_bd(root_path_cards: str):
 
     return carta_dict
 
-
 def achicar_imagen_carta(path_imagen: str, porcentaje: int):
     imagen_raw = pygame.image.load(path_imagen)
     alto = int(imagen_raw.get_height() * float(f'0.{porcentaje}'))
@@ -91,4 +90,3 @@ def guardar_ranking(jugador_dict: dict):
     with open(var.RUTA_RANKING_CSV, 'a', encoding='utf-8') as file:
         data = f'{jugador_dict.get("nombre")},{jugador_dict.get("puntaje_actual")}\n'
         file.write(data)
-        print(f'Datos guardados con exito: -> {data}')

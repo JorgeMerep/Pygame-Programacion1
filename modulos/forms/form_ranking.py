@@ -14,11 +14,33 @@ def iniciar_form_ranking(dict_form_datos: dict, jugador: dict):
     form['pantalla_ranking'] = []
     form['lista_ranking'] = []
     
-    form['label_titulo'] = Label(x=var.DIMENSION_PANTALLA[0]//2, y=var.DIMENSION_PANTALLA[1]//2 - 250,text=var.TITULO_JUEGO, screen=form.get('pantalla'), font_path=var.RUTA_FUENTE_SAIYAN_SANS, font_size=60)
+    form['label_titulo'] = Label(
+        x=var.DIMENSION_PANTALLA[0]//2, 
+        y=var.DIMENSION_PANTALLA[1]//2 - 250,
+        text=var.TITULO_JUEGO, 
+        screen=form.get('pantalla'), 
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        font_size=60)
 
-    form['label_subtitulo'] = Label(x=var.DIMENSION_PANTALLA[0]//2 + 50, y=var.DIMENSION_PANTALLA[1]//2 - 165,text=var.TEXTO_RANKING, screen=form.get('pantalla'), font_path=var.RUTA_FUENTE_SAIYAN_SANS, font_size=55, color=var.COLOR_NARANJA)
+    form['label_subtitulo'] = Label(
+        x=var.DIMENSION_PANTALLA[0]//2 + 50, 
+        y=var.DIMENSION_PANTALLA[1]//2 - 165,
+        text=var.TEXTO_RANKING, 
+        screen=form.get('pantalla'), 
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        font_size=55, 
+        color=var.COLOR_NARANJA)
     
-    form['boton_volver'] = Button(x=var.DIMENSION_PANTALLA[0]//2, y=var.DIMENSION_PANTALLA[1]//2 + 255, text=var.BOTON_VOLVER_MENU, screen=form.get('pantalla'), font_path=var.RUTA_FUENTE_SAIYAN_SANS, color=var.COLOR_NARANJA, font_size=44, on_click=click_volver_menu, on_click_param='form_menu')
+    form['boton_volver'] = Button(
+        x=var.DIMENSION_PANTALLA[0]//2, 
+        y=var.DIMENSION_PANTALLA[1]//2 + 255, 
+        text=var.BOTON_VOLVER_MENU, 
+        screen=form.get('pantalla'), 
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        color=var.COLOR_NARANJA, 
+        font_size=44, 
+        on_click=click_volver_menu, 
+        on_click_param='form_menu')
     
     form['lista_objetos'] = [
         form.get('label_titulo'), 

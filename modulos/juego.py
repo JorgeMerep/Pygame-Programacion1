@@ -20,8 +20,6 @@ def jugar_dragon_ball():
         "cantidad_vidas": var.CANTIDAD_VIDAS,
         "jugador": jugador_humano.inicializar_jugador(),
         "enemigo": enemigo_actual.inicializar_enemigo(),
-        'volumen_musica' : 100,
-        'tiempo_finalizado': None,
     }
         
     f_manager = form_manager.crear_form_manager(pantalla, datos_juego)

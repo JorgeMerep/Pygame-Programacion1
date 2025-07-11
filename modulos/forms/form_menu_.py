@@ -1,9 +1,7 @@
 import sys
 import modulos.forms.form_base as form_base
-import modulos.forms.form_juego as form_juego
 import modulos.nivel_cartas as nivel_cartas
 import modulos.variables as var
-import modulos.auxiliar as aux
 from utn_fra.pygame_widgets import (
     Button, Label,
 )
