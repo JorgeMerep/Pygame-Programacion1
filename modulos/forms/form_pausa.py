@@ -9,41 +9,43 @@ def iniciar_form_pausa(dict_form_datos: dict):
     
     form['titulo'] = Label(
         x=var.DIMENSION_PANTALLA[0] // 2, 
-        y=var.DIMENSION_PANTALLA[1] // 2 - 250,
+        y=var.DIMENSION_PANTALLA[1] // 2 - 300,
         text=var.TITULO_JUEGO, 
         screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_ALAGARD, 
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
         font_size=75, 
-        color=var.COLOR_NEGRO
+        color=var.COLOR_NARANJA
     )
     form['subtitulo'] = Label(
         x=var.DIMENSION_PANTALLA[0] // 2, 
-        y=var.DIMENSION_PANTALLA[1] // 2 - 175,
+        y=var.DIMENSION_PANTALLA[1] // 2 + 320,
         text='PAUSA', 
         screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_ALAGARD, 
-        font_size=50, 
-        color=var.COLOR_NEGRO
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        font_size=80, 
+        color=var.COLOR_NARANJA
     )
     
     form['boton_atras'] = Button(
-        x=var.DIMENSION_PANTALLA[0] // 2, 
-        y=var.DIMENSION_PANTALLA[1] // 2 + 175,
+        x= 180, 
+        y=var.DIMENSION_PANTALLA[1] // 2 + 320,
         text= var.BOTON_VOLVER_MENU, 
         screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_ALAGARD, 
-        color=var.COLOR_NEGRO,
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        color=var.COLOR_ROJO,
+        font_size= 40,
         on_click=cambiar_form_on_click, 
         on_click_param='form_menu'
     )
     
     form['boton_continuar'] = Button(
-        x=var.DIMENSION_PANTALLA[0] // 2, 
-        y=var.DIMENSION_PANTALLA[1] // 2 + 250,
+        x= 1090, 
+        y=var.DIMENSION_PANTALLA[1] // 2 + 320,
         text=var.BOTON_VOLVER_JUEGO, 
         screen=form.get('pantalla'), 
-        font_path=var.RUTA_FUENTE_ALAGARD, 
-        color=var.COLOR_NEGRO,
+        font_path=var.RUTA_FUENTE_SAIYAN_SANS, 
+        color=var.COLOR_ROJO,
+        font_size= 40,
         on_click=cambiar_form_on_click, 
         on_click_param='form_juego'
     )

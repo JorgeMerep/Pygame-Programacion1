@@ -21,7 +21,7 @@ RUTA_FONDO_OPCIONES = "./assets_Dragon_Ball_TCG/img/forms/img_6.png"
 RUTA_FONDO_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_8.png"
 RUTA_FONDO_JUEGO = "./assets_Dragon_Ball_TCG/img/background_cards.png"
 RUTA_FONDO_INGRESAR_DATOS_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_3.jpg"
-RUTA_FONDO_PAUSA = "./assets_Dragon_Ball_TCG/img/forms/img_2.png"
+RUTA_FONDO_PAUSA = "./assets_Dragon_Ball_TCG/img/forms/img_9.png"
 
 
 # ======= COLORES ===========
@@ -32,10 +32,10 @@ COLOR_NEGRO = (0, 0, 0)
 
 # ======= MUSICA ===========
 RUTA_MUSICA_MENU = "./assets_Dragon_Ball_TCG/audio/music/Chala_Head_Chala.ogg"
-RUTA_MUSICA_OPCIONES = "./assets_Dragon_Ball_TCG/audio/music/form_options.ogg"
+RUTA_MUSICA_OPCIONES = "./assets_Dragon_Ball_TCG/audio/music/opciones.ogg"
 RUTA_MUSICA_RANKING = "./assets_Dragon_Ball_TCG/audio/music/form_ranking.ogg"
-RUTA_MUSICA_JUEGO = "./assets_Dragon_Ball_TCG/audio/music/battle_music.ogg"
-RUTA_MUSICA_PAUSA = "./assets_Dragon_Ball_TCG/audio/music/form_pausa.ogg"
+RUTA_MUSICA_JUEGO = "./assets_Dragon_Ball_TCG/audio/music/pelea.ogg"
+RUTA_MUSICA_PAUSA = "./assets_Dragon_Ball_TCG/audio/music/pausa.ogg"
 
 
 # ======= ARCHIVOS ===========
