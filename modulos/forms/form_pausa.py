@@ -5,6 +5,15 @@ from utn_fra.pygame_widgets import (
 )
 
 def iniciar_form_pausa(dict_form_datos: dict):
+    """
+    Inicializa el formulario de pausa con todos sus componentes.
+    
+    Args:
+        dict_form_datos (dict): Diccionario con los datos base del formulario
+    
+    Returns:
+        dict: Diccionario del formulario creado con todos los componentes de pausa
+    """
     form = form_base.crear_form_base(dict_form_datos)
     
     form['titulo'] = Label(
@@ -62,13 +71,38 @@ def iniciar_form_pausa(dict_form_datos: dict):
     return form
 
 def cambiar_form_on_click(parametro: str):
+    """
+    Maneja el evento de clic para cambiar de formulario.
+    
+    Args:
+        parametro (str): Nombre del formulario a activar
+    """
     form_base.activar_form(parametro)
 
 def dibujar(dict_form_datos: dict):
+    """
+    Dibuja el formulario de pausa.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario con todos los componentes
+    """
     form_base.dibujar(dict_form_datos)
 
 def actualizar(dict_form_datos: dict):
+    """
+    Actualiza el estado del formulario de pausa.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario a actualizar
+    """
     form_base.actualizar(dict_form_datos)
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
+    """
+    Activa la música asociada al formulario de pausa.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario con la ruta de música
+        form_manager (dict): Diccionario del gestor de formularios para manejar la música
+    """
     form_base.activar_musica(dict_form_datos, form_manager)

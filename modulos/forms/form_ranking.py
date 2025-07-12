@@ -7,6 +7,16 @@ from utn_fra.pygame_widgets import (
 
 
 def iniciar_form_ranking(dict_form_datos: dict, jugador: dict):
+    """
+    Inicializa el formulario de ranking con todos sus componentes.
+    
+    Args:
+        dict_form_datos (dict): Diccionario con los datos base del formulario
+        jugador (dict): Diccionario con los datos del jugador
+    
+    Returns:
+        dict: Diccionario del formulario creado con todos los componentes de ranking
+    """
     form = form_base.crear_form_base(dict_form_datos)    
     
     form['jugador'] = jugador
@@ -54,10 +64,23 @@ def iniciar_form_ranking(dict_form_datos: dict, jugador: dict):
 
 
 def click_volver_menu(parametro: str):
+    """
+    Maneja el evento de clic en el botón volver al menú.
+    
+    Args:
+        parametro (str): Nombre del formulario a activar
+    """
     form_base.activar_form(parametro)
 
 
 def iniciar_ranking(dict_form_datos: dict):
+    """
+    Inicializa la visualización del ranking creando labels para cada entrada.
+    Muestra el número de posición, nombre y puntaje de cada jugador.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario con la lista de ranking
+    """
     dict_form_datos['pantalla_ranking'] = []
     matriz = dict_form_datos.get('lista_ranking')
     for indice_fila in range(len(matriz)):
@@ -86,19 +109,43 @@ def iniciar_ranking(dict_form_datos: dict):
     
     
 def inicializar_ranking(dict_form_datos: dict):
+    """
+    Inicializa el ranking cargando los datos desde el archivo y limitando a 10 entradas.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario donde se almacenará el ranking
+    """
     dict_form_datos['lista_ranking'] = aux.cargar_ranking()[:10]
     iniciar_ranking(dict_form_datos)
 
 def dibujar(dict_form_datos: dict):
+    """
+    Dibuja el formulario de ranking incluyendo todos los labels del ranking.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario con todos los componentes
+    """
     form_base.dibujar(dict_form_datos)
     for label in dict_form_datos.get('pantalla_ranking'):
         label.draw()
 
 def actualizar(dict_form_datos: dict):
+    """
+    Actualiza el formulario de ranking. Si está activo, reinicializa el ranking.
     
+    Args:
+        dict_form_datos (dict): Diccionario del formulario a actualizar
+    """
     if dict_form_datos.get('activo'):
         inicializar_ranking(dict_form_datos)
     form_base.actualizar(dict_form_datos)
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
+    """
+    Activa la música asociada al formulario de ranking.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario con la ruta de música
+        form_manager (dict): Diccionario del gestor de formularios para manejar la música
+    """
     form_base.activar_musica(dict_form_datos, form_manager)

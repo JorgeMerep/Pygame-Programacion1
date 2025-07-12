@@ -8,6 +8,15 @@ from utn_fra.pygame_widgets import (
 
 
 def iniciar_form_menu_principal(dict_form_datos: dict):
+    """
+    Inicializa el formulario del menú principal con todos sus componentes.
+    
+    Args:
+        dict_form_datos (dict): Diccionario con los datos base del formulario
+    
+    Returns:
+        dict: Diccionario del formulario creado con todos los componentes del menú
+    """
     form = form_base.crear_form_base(dict_form_datos)
     
     form['label_titulo'] = Label(
@@ -87,10 +96,14 @@ def iniciar_form_menu_principal(dict_form_datos: dict):
     
     return form
 
-def click_empezar(parametro: str):
-    (parametro)
-
 def cambiar_formulario_on_click(parametro: str):
+    """
+    Maneja el cambio de formulario al hacer clic en un botón.
+    Si es el formulario de juego, reinicia el nivel antes de activarlo.
+    
+    Args:
+        parametro (str): Nombre del formulario a activar
+    """
     form_juego = form_base.forms_dict[parametro]
     if parametro == "form_juego":
         nivel_cartas.reiniciar_nivel(form_juego.get("nivel"))
@@ -98,16 +111,40 @@ def cambiar_formulario_on_click(parametro: str):
     form_base.activar_form(parametro)
 
 def click_salir(parametro: str):
-    (parametro)
+    """
+    Maneja el evento de clic en el botón salir y cierra la aplicación.
+    
+    Args:
+        parametro (str): Parámetro pasado al hacer clic
+    """
+    print(parametro)
     sys.exit()
 
 def dibujar(dict_form_datos: dict):
+    """
+    Dibuja el formulario del menú principal.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario con todos los componentes
+    """
     form_base.dibujar(dict_form_datos)
 
 def actualizar(dict_form_datos: dict):
+    """
+    Actualiza el estado del formulario del menú principal.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario a actualizar
+    """
     form_base.actualizar(dict_form_datos)
 
 def activar_musica(dict_form_datos: dict, form_manager: dict):
+    """
+    Activa la música asociada al formulario del menú principal.
+    
+    Args:
+        dict_form_datos (dict): Diccionario del formulario con la ruta de música
+        form_manager (dict): Diccionario del gestor de formularios para manejar la música
+    """
     form_base.activar_musica(dict_form_datos, form_manager)
 
-    

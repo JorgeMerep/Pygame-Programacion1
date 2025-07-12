@@ -4,17 +4,39 @@ import json
 import os
 
 def parsear_entero(valor: str):
+    """
+    Convierte una cadena a entero si es un dígito, de lo contrario devuelve el valor original.
+    
+    Args:
+        valor (str): Cadena a convertir
+    
+    Returns:
+        int | str: El valor convertido a entero si es posible, de lo contrario la cadena original
+    """
     if valor.isdigit():
         return int(valor)
     return valor
 
 def mapear_valores(matriz: list[list], indice_a_aplicar: int, callback_parseo_entero):
+    """
+    Aplica una función callback a todos los valores de una columna específica en una matriz.
     
+    Args:
+        matriz (list[list]): Matriz de datos donde aplicar la función
+        indice_a_aplicar (int): Índice de la columna a procesar
+        callback_parseo_entero: Función callback a aplicar a cada valor
+    """
     for indice_fila in range(len(matriz)):
         valor = matriz[indice_fila][indice_a_aplicar]
         matriz[indice_fila][indice_a_aplicar] = callback_parseo_entero(valor)
 
 def cargar_ranking():
+    """
+    Carga el ranking desde un archivo CSV, parsea los puntajes y ordena por puntaje descendente.
+    
+    Returns:
+        list: Lista de listas con [nombre, puntaje] ordenada por puntaje descendente
+    """
     ranking = []
     with open(var.RUTA_RANKING_CSV, 'r', encoding='utf-8') as file:
         lineas = file.read()
@@ -27,15 +49,32 @@ def cargar_ranking():
     return ranking
 
 def cargar_configs(path: str) -> dict:
+    """
+    Carga configuraciones desde un archivo JSON.
+    
+    Args:
+        path (str): Ruta del archivo JSON con las configuraciones
+    
+    Returns:
+        dict: Diccionario con las configuraciones cargadas
+    """
     configuraciones = {}
     with open(path, 'r', encoding='utf-8') as file:
         configuraciones = json.load(file)
 
     return configuraciones
 
-
 def generar_bd(root_path_cards: str):
-        
+    """
+    Genera una base de datos de cartas recorriendo directorios y procesando archivos de imagen.
+    Extrae información de las cartas desde los nombres de archivo con formato específico.
+    
+    Args:
+        root_path_cards (str): Ruta raíz donde se encuentran los directorios con cartas
+    
+    Returns:
+        dict: Diccionario con mazos de cartas organizados por nombre de directorio
+    """
     carta_dict = {}
 
     for root, dir, files in os.walk(root_path_cards, topdown=True):
@@ -80,6 +119,16 @@ def generar_bd(root_path_cards: str):
     return carta_dict
 
 def achicar_imagen_carta(path_imagen: str, porcentaje: int):
+    """
+    Reduce el tamaño de una imagen de carta según un porcentaje especificado.
+    
+    Args:
+        path_imagen (str): Ruta de la imagen a redimensionar
+        porcentaje (int): Porcentaje de reducción (ej: 50 para reducir al 50%)
+    
+    Returns:
+        pygame.Surface: Imagen redimensionada
+    """
     imagen_raw = pygame.image.load(path_imagen)
     alto = int(imagen_raw.get_height() * float(f'0.{porcentaje}'))
     ancho = int(imagen_raw.get_width() * float(f'0.{porcentaje}'))
@@ -87,6 +136,12 @@ def achicar_imagen_carta(path_imagen: str, porcentaje: int):
     return imagen_final
 
 def guardar_ranking(jugador_dict: dict):
+    """
+    Guarda los datos del jugador en el archivo de ranking CSV.
+    
+    Args:
+        jugador_dict (dict): Diccionario del jugador que debe contener 'nombre' y 'puntaje_actual'
+    """
     with open(var.RUTA_RANKING_CSV, 'a', encoding='utf-8') as file:
         data = f'{jugador_dict.get("nombre")},{jugador_dict.get("puntaje_actual")}\n'
         file.write(data)

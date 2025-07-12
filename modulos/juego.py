@@ -6,7 +6,24 @@ import modulos.jugador as jugador_humano
 import modulos.enemigo as enemigo_actual
 
 def jugar_dragon_ball():
-
+    """
+    Función principal del juego Dragon Ball que inicializa pygame, crea la ventana,
+    configura el juego y ejecuta el bucle principal.
+    
+    Inicializa:
+    - Pygame y el mixer de audio
+    - La ventana del juego con título e icono
+    - Los datos del juego (puntaje, vidas, jugador, enemigo)
+    - El gestor de formularios
+    
+    Ejecuta el bucle principal que:
+    - Maneja los eventos de pygame
+    - Actualiza los formularios
+    - Refresca la pantalla
+    - Controla los FPS
+    
+    Termina limpiamente cuando se cierra la ventana.
+    """
     pygame.init()
     pygame.mixer.init()
     
@@ -39,4 +56,3 @@ def jugar_dragon_ball():
     
     pygame.quit()
     sys.exit()
-    

@@ -9,6 +9,18 @@ import modulos.forms.form_pausa as form_pausa
 
 
 def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
+    """
+    Crea y configura el gestor de formularios con todos los formularios del juego.
+    
+    Args:
+        pantalla (pygame.Surface): Superficie principal de la pantalla
+        datos_juego (dict): Diccionario con los datos del juego que debe contener:
+            - jugador: Datos del jugador
+            - enemigo: Datos del enemigo
+    
+    Returns:
+        dict: Diccionario del gestor de formularios con todos los formularios inicializados
+    """
     form = {}
     form['pantalla_principal'] = pantalla
     form['nivel_actual'] = 1
@@ -104,9 +116,15 @@ def crear_form_manager(pantalla: pygame.Surface, datos_juego: dict) -> dict:
 
 
 def actualizar_forms(form_manager: dict, lista_eventos: pygame.event.Event):
-    # Preguntar por cada uno de los formularios si esta activo
-    # en caso de estarlo, dibujar, actualizar y activar la musica que corresponde
+    """
+    Actualiza el formulario activo según el estado del gestor de formularios.
+    Verifica cuál formulario está activo y ejecuta sus funciones correspondientes.
     
+    Args:
+        form_manager (dict): Diccionario del gestor de formularios
+        lista_eventos (pygame.event.Event): Lista de eventos de pygame
+    """
+ 
     # FORM MENU
     if form_manager.get('lista_forms')[0].get('activo'):
         form_menu_.actualizar(form_manager.get('lista_forms')[0])
@@ -145,5 +163,11 @@ def actualizar_forms(form_manager: dict, lista_eventos: pygame.event.Event):
 
 
 def actualizar(form_manager: dict, lista_eventos: pygame.event.Event):
-    actualizar_forms(form_manager, lista_eventos)    
+    """
+    Función principal de actualización que delega la actualización de formularios.
     
+    Args:
+        form_manager (dict): Diccionario del gestor de formularios
+        lista_eventos (pygame.event.Event): Lista de eventos de pygame
+    """
+    actualizar_forms(form_manager, lista_eventos)

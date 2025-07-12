@@ -7,7 +7,18 @@ import modulos.jugador as jugador_humano
 import modulos.enemigo as enemigo_actual
 
 def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surface, numero_nivel: int):
+    """
+    Inicializa un nivel de cartas con todos los datos necesarios para el juego.
     
+    Args:
+        jugador (dict): Diccionario con los datos del jugador
+        enemigo (dict): Diccionario con los datos del enemigo
+        pantalla (pygame.Surface): Superficie de la pantalla para dibujar
+        numero_nivel (int): Número del nivel a inicializar
+    
+    Returns:
+        dict: Diccionario con todos los datos del nivel inicializados
+    """
     nivel_data = {}
     nivel_data['numero_nivel'] = numero_nivel
     nivel_data['configs'] = {}
@@ -31,14 +42,12 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     nivel_data['buff_shield_activo'] = False
     nivel_data['buff_heal_activo'] = False
 
-
     nivel_data['pantalla'] = pantalla
 
     nivel_data['jugador'] = jugador
     nivel_data['enemigo'] = enemigo
     nivel_data["evaluar_ganador"] = ""
 
-    
     nivel_data['juego_finalizado'] = False
     nivel_data['puntaje_guardado'] = False
 
@@ -50,19 +59,37 @@ def inicializar_nivel_cartas(jugador: dict, enemigo: dict, pantalla: pygame.Surf
     
     return nivel_data
 
-def inicializar_data_nivel(nivel_data: dict): 
+def inicializar_data_nivel(nivel_data: dict):
+    """
+    Inicializa los datos del nivel cargando configuraciones y generando mazos.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     cargar_configs_nivel(nivel_data)
     cargar_bd_cartas(nivel_data)
     generar_mazo_jugador(nivel_data)
     generar_mazo_enemigo(nivel_data)
 
 def cargar_configs_nivel(nivel_data: dict):
+    """
+    Carga las configuraciones específicas del nivel desde el archivo JSON.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     if not nivel_data.get('juego_finalizado') and not nivel_data.get('data_cargada'):
         configs_globales = aux.cargar_configs(var.RUTA_CONFIGS_JSON)
         nivel_data['configs'] = configs_globales.get(f'nivel_{nivel_data.get("numero_nivel")}')
         nivel_data['rutas_mazos'] = nivel_data.get('configs').get('mazos')
 
 def cargar_bd_cartas(nivel_data: dict):
+    """
+    Carga la base de datos de cartas desde las rutas especificadas en la configuración.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     if not nivel_data.get('juego_finalizado'):
         nivel_data['cartas_mazo_juego'] = {}  # Inicializar como diccionario vacío
 
@@ -74,6 +101,12 @@ def cargar_bd_cartas(nivel_data: dict):
                 nivel_data['cartas_mazo_juego'][nombre_mazo] = cartas_del_mazo[nombre_mazo]
 
 def generar_mazo_jugador(nivel_data: dict):
+    """
+    Genera el mazo del jugador seleccionando cartas aleatoriamente y calculando stats totales.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     bd_cartas = nivel_data.get('cartas_mazo_juego')  # Dict con mazos y sus cartas
     cantidades = nivel_data.get('configs').get('cantidades')  # Dict con cantidades por mazo
 
@@ -108,6 +141,12 @@ def generar_mazo_jugador(nivel_data: dict):
 
 
 def generar_mazo_enemigo(nivel_data: dict):
+    """
+    Genera el mazo del enemigo seleccionando cartas aleatoriamente y calculando stats totales.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     bd_cartas = nivel_data.get('cartas_mazo_juego')  # Dict con mazos y sus cartas
     cantidades = nivel_data.get('configs').get('cantidades')  # Dict con cantidades por mazo
 
@@ -131,7 +170,12 @@ def generar_mazo_enemigo(nivel_data: dict):
         nivel_data["def_total_enemigo"] += carta_final.get("def", 0)
 
 def jugar_partida(nivel_data: dict):
+    """
+    Ejecuta una partida revelando cartas del jugador y enemigo, y evaluando el resultado.
     
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     # JUGADOR: Verificar cartas del mazo. Visibilidad. Dar vuelta carta
     if nivel_data.get('cartas_mazo_juego_final_jugador') and\
         not nivel_data.get('cartas_mazo_juego_final_jugador')[-1].get('visible'):
@@ -156,6 +200,14 @@ def jugar_partida(nivel_data: dict):
     evaluar_stats_carta_vista(carta_vista_jugador, carta_vista_enemigo, nivel_data)
 
 def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: dict, nivel_data: dict):
+    """
+    Evalúa las cartas reveladas y determina el ganador de la mano, aplicando daño y buffs.
+    
+    Args:
+        carta_vista_jugador (dict): Carta revelada del jugador
+        carta_vista_enemigo (dict): Carta revelada del enemigo
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     ataque_mas_bonus_jugador = carta.obtener_ataque_mas_bonus(carta_vista_jugador)
     ataque_mas_bonus_enemigo = carta.obtener_ataque_mas_bonus(carta_vista_enemigo) 
 
@@ -183,15 +235,21 @@ def evaluar_stats_carta_vista(carta_vista_jugador: dict, carta_vista_enemigo: di
             nivel_data["hp_total_jugador"] = max(0, nivel_data["hp_total_jugador"] - hp_perdida)
             nivel_data["atk_total_jugador"] = max(0, nivel_data["atk_total_jugador"] - ataque_mas_bonus_jugador)
 
-    
     evaluar_ganador_mano(ataque_mas_bonus_jugador, ataque_mas_bonus_enemigo, nivel_data)
 
     # Los buff solo se usan una vez
     nivel_data['buff_shield_activo'] = False
     nivel_data["buff_heal_activo"] = False
 
-
 def evaluar_ganador_mano(ataque_mas_bonus_jugador: int, ataque_mas_bonus_enemigo: int, nivel_data: dict):
+    """
+    Determina el ganador de la mano y asigna puntos correspondientes.
+    
+    Args:
+        ataque_mas_bonus_jugador (int): Ataque total del jugador con bonus
+        ataque_mas_bonus_enemigo (int): Ataque total del enemigo con bonus
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     if nivel_data["buff_shield_activo"] == True:
         jugador_humano.sumar_puntaje_mano_ganada(nivel_data.get("jugador"), 1)   
     else:
@@ -201,32 +259,91 @@ def evaluar_ganador_mano(ataque_mas_bonus_jugador: int, ataque_mas_bonus_enemigo
             enemigo_actual.sumar_puntaje_mano_ganada(nivel_data.get("enemigo"), 1)
 
 def evaluar_hp_jugadores(nivel_data: dict):
+    """
+    Evalúa si algún jugador ha perdido todos sus puntos de vida.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    
+    Returns:
+        bool: True si algún jugador tiene 0 HP, False en caso contrario
+    """
     if nivel_data.get("hp_total_jugador") == 0 or nivel_data.get("hp_total_enemigo") == 0:
        return True
     
 def activar_buff_shield(nivel_data: dict):
+    """
+    Activa el buff de escudo para el jugador.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     nivel_data['buff_shield_activo'] = True
 
 def activar_buff_heal(nivel_data: dict):
+    """
+    Activa el buff de curación restaurando la vida inicial del jugador.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     nivel_data["hp_total_jugador"] = nivel_data.get("hp_total_inicial_jugador") 
 
 def tiempo_esta_terminado(nivel_data: dict):
+    """
+    Verifica si el tiempo del nivel ha terminado.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    
+    Returns:
+        bool: True si el tiempo llegó a 0 o menos, False en caso contrario
+    """
     return nivel_data.get('timer_partida') <= 0
 
 def mazo_esta_vacio(nivel_data: dict):
+    """
+    Verifica si ambos mazos están vacíos.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    
+    Returns:
+        bool: True si ambos mazos están vacíos, False en caso contrario
+    """
     return len(nivel_data.get('cartas_mazo_juego_final_jugador')) == 0 and len(nivel_data.get("cartas_mazo_juego_final_enemigo")) == 0
 
 def juego_terminado(nivel_data: dict):
+    """
+    Verifica si el juego ha terminado.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    
+    Returns:
+        bool: True si el juego ha terminado, False en caso contrario
+    """
     return nivel_data.get('juego_finalizado')
 
 def check_juego_terminado(nivel_data: dict):
+    """
+    Verifica las condiciones de fin de juego y actualiza el estado correspondiente.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     if mazo_esta_vacio(nivel_data) or\
         tiempo_esta_terminado(nivel_data) or\
             evaluar_hp_jugadores(nivel_data):
                 nivel_data['juego_finalizado'] = True
 
-
 def reiniciar_nivel(nivel_data: dict):
+    """
+    Reinicia todos los valores del nivel a su estado inicial.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     nivel_data['buff_shield_activo'] = False
     nivel_data['buff_heal_activo'] = False
     nivel_data['juego_finalizado'] = False
@@ -242,6 +359,12 @@ def reiniciar_nivel(nivel_data: dict):
     inicializar_data_nivel(nivel_data)
 
 def dibujar_cartas(nivel_data: dict):
+    """
+    Dibuja las cartas visibles en pantalla para jugador y enemigo.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     if nivel_data.get('cartas_mazo_juego_final_jugador'):
         carta.dibujar_carta(nivel_data.get('cartas_mazo_juego_final_jugador')[-1], nivel_data.get('pantalla'))
         
@@ -255,10 +378,15 @@ def dibujar_cartas(nivel_data: dict):
         carta.dibujar_carta(nivel_data.get('cartas_mazo_juego_final_vistas_enemigo')[-1], nivel_data.get('pantalla'))
 
 def actualizar_cartas(nivel_data: dict):
+    """
+    Actualiza el estado de las cartas y verifica condiciones de fin de juego.
+    
+    Args:
+        nivel_data (dict): Diccionario con los datos del nivel
+    """
     check_juego_terminado(nivel_data)
     if juego_terminado(nivel_data) and not nivel_data.get('puntaje_guardado'):
         jugador_humano.actualizar_puntaje_total(nivel_data.get("jugador"))
         nivel_data['puntaje_guardado'] = True
 
-        
-        
+

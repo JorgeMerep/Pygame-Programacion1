@@ -1,11 +1,29 @@
 {
   "nivel_1": {
-    "cantidades": {
-      "green_deck_expansion_1": 2,
-      "purple_deck_expansion_2": 2
+     "cantidades": {
+      "green_deck_expansion_1": 10,
+      "green_deck_expansion_2": 10,
+      "green_deck_expansion_3": 10,
+      "blue_deck_expansion_1": 5,
+      "blue_deck_expansion_2": 5,
+      "blue_deck_expansion_3": 5,
+      "red_deck_expansion_1": 5,
+      "red_deck_expansion_2": 5,
+      "red_deck_expansion_3": 5,
+      "purple_deck_expansion_1": 5,
+      "purple_deck_expansion_2": 5
     },
-    "mazos": {
-      "green_deck_expansion_1": "./assets_Dragon_Ball_TCG/img/decks/green_deck_expansion_1",   
+     "mazos": {
+      "green_deck_expansion_1": "./assets_Dragon_Ball_TCG/img/decks/green_deck_expansion_1",
+      "green_deck_expansion_2": "./assets_Dragon_Ball_TCG/img/decks/green_deck_expansion_2",
+      "green_deck_expansion_3": "./assets_Dragon_Ball_TCG/img/decks/green_deck_expansion_3",
+      "blue_deck_expansion_1": "./assets_Dragon_Ball_TCG/img/decks/blue_deck_expansion_1",
+      "blue_deck_expansion_2": "./assets_Dragon_Ball_TCG/img/decks/blue_deck_expansion_2",
+      "blue_deck_expansion_3": "./assets_Dragon_Ball_TCG/img/decks/blue_deck_expansion_3",
+      "red_deck_expansion_1": "./assets_Dragon_Ball_TCG/img/decks/red_deck_expansion_1",
+      "red_deck_expansion_2": "./assets_Dragon_Ball_TCG/img/decks/red_deck_expansion_2",
+      "red_deck_expansion_3": "./assets_Dragon_Ball_TCG/img/decks/red_deck_expansion_3",
+      "purple_deck_expansion_1": "./assets_Dragon_Ball_TCG/img/decks/purple_deck_expansion_1",
       "purple_deck_expansion_2": "./assets_Dragon_Ball_TCG/img/decks/purple_deck_expansion_2"
     },
     "coordenadas": {
