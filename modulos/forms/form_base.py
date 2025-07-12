@@ -1,4 +1,5 @@
 import pygame 
+import modulos.variables as var
 
 forms_dict = {}
 
@@ -49,6 +50,7 @@ def reproducir_musica(ruta: str, form_manager: dict, forzar: bool = False):
     if musica_actual != ruta or forzar:
         pygame.mixer.music.stop()
         pygame.mixer.music.load(ruta)
+        pygame.mixer.music.set_volume(var.VOL_MUSICA_MINIMO)
         pygame.mixer.music.play(-1)
         form_manager['musica_actual'] = ruta
 

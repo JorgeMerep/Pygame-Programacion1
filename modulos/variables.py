@@ -23,12 +23,10 @@ RUTA_FONDO_JUEGO = "./assets_Dragon_Ball_TCG/img/background_cards.png"
 RUTA_FONDO_INGRESAR_DATOS_RANKING = "./assets_Dragon_Ball_TCG/img/forms/img_3.jpg"
 RUTA_FONDO_PAUSA = "./assets_Dragon_Ball_TCG/img/forms/img_9.png"
 
-
 # ======= COLORES ===========
 COLOR_NARANJA = (255, 165, 0)
 COLOR_ROJO = (255, 0, 0)
 COLOR_NEGRO = (0, 0, 0)
-
 
 # ======= MUSICA ===========
 RUTA_MUSICA_MENU = "./assets_Dragon_Ball_TCG/audio/music/Chala_Head_Chala.ogg"
@@ -36,7 +34,10 @@ RUTA_MUSICA_OPCIONES = "./assets_Dragon_Ball_TCG/audio/music/opciones.ogg"
 RUTA_MUSICA_RANKING = "./assets_Dragon_Ball_TCG/audio/music/form_ranking.ogg"
 RUTA_MUSICA_JUEGO = "./assets_Dragon_Ball_TCG/audio/music/pelea.ogg"
 RUTA_MUSICA_PAUSA = "./assets_Dragon_Ball_TCG/audio/music/pausa.ogg"
+RUTA_MUSICA_INGRESAR_DATOS = "./assets_Dragon_Ball_TCG/audio/music/sonido_prelude_dbz.ogg"
 
+# ======= VOLUMEN MUSICA ===========
+VOL_MUSICA_MINIMO = 0.2
 
 # ======= ARCHIVOS ===========
 RUTA_RANKING_CSV = './ranking.csv'
