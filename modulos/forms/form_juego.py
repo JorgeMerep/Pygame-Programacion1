@@ -27,7 +27,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     form["nivel"] = nivel_cartas.inicializar_nivel_cartas(form.get("jugador"), form.get("enemigo"), form.get("pantalla"),form.get("numero_nivel"))
 
     form["label_hp_jugador"] = Label(
-        x=140,
+        x=150,
         y=520,
         text=f"HP: {form['nivel'].get('hp_total_jugador', 0)}",
         screen=form.get('pantalla'),
@@ -36,7 +36,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     )
 
     form["label_atk_jugador"] = Label(
-        x=140,
+        x=150,
         y=540,
         text=f"ATK: {form['nivel'].get('atk_total_jugador', 0)}",
         screen=form.get('pantalla'),
@@ -45,7 +45,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     )
 
     form["label_def_jugador"] = Label(
-        x=140,
+        x=150,
         y=560,
         text=f"DEF: {form['nivel'].get('def_total_jugador', 0)}",
         screen=form.get('pantalla'),
@@ -54,7 +54,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     )
 
     form["label_hp_enemigo"] = Label(
-        x=140, 
+        x=150, 
         y=190,
         text=f"HP: {form['nivel'].get('hp_total_enemigo', 0)}",
         screen=form.get('pantalla'), 
@@ -63,7 +63,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     )
     
     form["label_atk_enemigo"] = Label(
-        x=140, 
+        x=150, 
         y=210,
         text=f"ATK: {form['nivel'].get('atk_total_enemigo', 0)}",
         screen=form.get('pantalla'), 
@@ -72,7 +72,7 @@ def iniciar_form_juego(dict_form_datos: dict, jugador: dict, enemigo: dict):
     )
     
     form["label_def_enemigo"] = Label(
-        x=140, 
+        x=150, 
         y=230,
         text=f"DEF: {form['nivel'].get('def_total_enemigo', 0)}",
         screen=form.get('pantalla'), 
